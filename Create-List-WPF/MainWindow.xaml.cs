@@ -25,17 +25,27 @@ namespace Create_List_WPF
         public MainWindow()
         {
             InitializeComponent();
+
+            // time stamp 1
+
+            IEnumerable<ItemList> items = Generate();
+
+            // time stamp 2
+
+
+           DisplayBox.ItemsSource = items;
+        }
+
+        private IEnumerable<ItemList> Generate()
+        {
             int i;
             List<ItemList> items = new List<ItemList>();
             for (i = 0; i < 1000000; i++)
             {
-                //                items.Add(new ItemList() { AString = i + " " +   RandomUtil.GetRandomString() });
-                items.Add(new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() });
-                DisplayBox.ItemsSource = items;
+                items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
             }
 
-
-           // DisplayBox.ItemsSource = items;
+            return items;
         }
     }
 
