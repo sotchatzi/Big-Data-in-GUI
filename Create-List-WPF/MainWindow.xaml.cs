@@ -27,8 +27,9 @@ namespace Create_List_WPF
             InitializeComponent();
 
             // time stamp 1
-
-            IEnumerable<ItemList> items = Generate();
+            
+            //One million size
+            IEnumerable<ItemList> items = Generate(1000000);
 
             // time stamp 2
 
@@ -36,11 +37,10 @@ namespace Create_List_WPF
            DisplayBox.ItemsSource = items;
         }
 
-        private IEnumerable<ItemList> Generate()
+        private IEnumerable<ItemList> Generate(int size)
         {
-            int i;
             List<ItemList> items = new List<ItemList>();
-            for (i = 0; i < 1000000; i++)
+            for (int i = 0; i < size; i++)
             {
                 items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
             }
