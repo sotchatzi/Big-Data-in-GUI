@@ -34,7 +34,13 @@ namespace Create_List_WPF
             stopWatch.Start();
 
             //One million size
-            IEnumerable<ItemList> items = Generate(1000000);
+//            IEnumerable<ItemList> items = Generate(1000000);
+
+            //One million size and display in the GUI through yield
+//            DisplayBox.ItemsSource = GenerateYield(1000000);
+
+            //10 million size and display in the GUI through yield
+            DisplayBox.ItemsSource = GenerateYield(1000000);
 
             //End timestamp
             stopWatch.Stop();
@@ -42,30 +48,29 @@ namespace Create_List_WPF
             TimeSpan ts = stopWatch.Elapsed;
 
             //Display random strings
-            DisplayBox.ItemsSource = items;
+//            DisplayBox.ItemsSource = items;
             //Display elapsed time
             ElapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
         }
 
         //for loop implementation
-//        private IEnumerable<ItemList> Generate(int size)
-//        {
-//            List<ItemList> items = new List<ItemList>();
-//            for (int i = 0; i < size; i++)
-//            {
-//                items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
-//           }
-//           return items;
-//        }
-
         private IEnumerable<ItemList> Generate(int size)
         {
             List<ItemList> items = new List<ItemList>();
             for (int i = 0; i < size; i++)
             {
-                items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
+                items.Add(new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() });
             }
             return items;
+        }
+
+        //Generate string list through yield
+        private IEnumerable<ItemList> GenerateYield(int size)
+        {
+            for (int i = 1; i <= size; i++)
+            {
+                yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+            }
         }
     }
     
