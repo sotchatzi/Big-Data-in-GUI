@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Create_List_WPF"
         mc:Ignorable="d"
-        Title="CreateList" Height="450" Width="800">
+        Title="CreateList" Height="450" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+<!--            <RowDefinition Height="*" /> -->
         </Grid.RowDefinitions>
-
-        <ListBox Name="DisplayBox" Grid.Column="1"  Grid.Row="1">
+        <TextBlock Name="ElapsedTime" Grid.Column="1"
+                   HorizontalAlignment="Center">
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+        <ListBox Name="DisplayBox" Grid.Column="0"  Grid.Row="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

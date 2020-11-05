@@ -13,7 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//Random util class
 using System.IO;
+//stopwatch
+using System.Diagnostics;
 
 namespace Create_List_WPF
 {
@@ -26,16 +29,34 @@ namespace Create_List_WPF
         {
             InitializeComponent();
 
-            // time stamp 1
-            
+            //Start timestamp
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             //One million size
             IEnumerable<ItemList> items = Generate(1000000);
 
-            // time stamp 2
+            //End timestamp
+            stopWatch.Stop();
+            //Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
 
-
-           DisplayBox.ItemsSource = items;
+            //Display random strings
+            DisplayBox.ItemsSource = items;
+            //Display elapsed time
+            ElapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
         }
+
+        //for loop implementation
+//        private IEnumerable<ItemList> Generate(int size)
+//        {
+//            List<ItemList> items = new List<ItemList>();
+//            for (int i = 0; i < size; i++)
+//            {
+//                items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
+//           }
+//           return items;
+//        }
 
         private IEnumerable<ItemList> Generate(int size)
         {
@@ -44,21 +65,30 @@ namespace Create_List_WPF
             {
                 items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
             }
-
             return items;
         }
     }
+    
+    //TextboxText: elapsed time setter and getter
+    public class TextboxText
+    {
+        public double seconds { get; set; }
+        public double milliseconds { get; set; }
 
+    }
+
+    //ItemList: random string generator setter and getter
     public class ItemList
     {
         public string AString { get; set; }
         public int AnIndex { get; set; }
     }
 
+    //RandomUtil: random strim generator
     static class RandomUtil
     {
-        /// https://www.dotnetperls.com/random-string
         /// <summary>
+        /// https://www.dotnetperls.com/random-string
         /// Get random string of 11 characters.
         /// </summary>
         /// <returns>Random string.</returns>
