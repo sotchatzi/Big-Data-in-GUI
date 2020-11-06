@@ -1,5 +1,7 @@
 ﻿namespace Create_List_WPF
 {
+
+    //RandomUtil: random strim generator
     static class RandomUtil
     {
         /// <summary>
