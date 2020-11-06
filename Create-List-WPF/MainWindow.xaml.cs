@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,13 +33,14 @@ namespace Create_List_WPF
             stopWatch.Start();
 
             //One million size
-//            IEnumerable<ItemList> items = Generate(1000000);
+            //            IEnumerable<ItemList> items = Generate(1000000);
 
             //One million size and display in the GUI through yield
-//            DisplayBox.ItemsSource = GenerateYield(1000000);
+            //            DisplayBox.ItemsSource = GenerateYield(1000000);
 
             //10 million size and display in the GUI through yield
-            DisplayBox.ItemsSource = GenerateYield(1000000);
+            IGenerator generator = new ForLoopGenerator();
+            DisplayBox.ItemsSource = generator.Generate(1000000);
 
             //End timestamp
             stopWatch.Stop();
@@ -54,54 +54,15 @@ namespace Create_List_WPF
         }
 
         //for loop implementation
-        private IEnumerable<ItemList> Generate(int size)
-        {
-            List<ItemList> items = new List<ItemList>();
-            for (int i = 0; i < size; i++)
-            {
-                items.Add(new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() });
-            }
-            return items;
-        }
+
 
         //Generate string list through yield
-        private IEnumerable<ItemList> GenerateYield(int size)
-        {
-            for (int i = 1; i <= size; i++)
-            {
-                yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
-            }
-        }
-    }
-    
-    //TextboxText: elapsed time setter and getter
-    public class TextboxText
-    {
-        public double seconds { get; set; }
-        public double milliseconds { get; set; }
 
     }
+
+    //TextboxText: elapsed time setter and getter
 
     //ItemList: random string generator setter and getter
-    public class ItemList
-    {
-        public string AString { get; set; }
-        public int AnIndex { get; set; }
-    }
 
     //RandomUtil: random strim generator
-    static class RandomUtil
-    {
-        /// <summary>
-        /// https://www.dotnetperls.com/random-string
-        /// Get random string of 11 characters.
-        /// </summary>
-        /// <returns>Random string.</returns>
-        public static string GetRandomString()
-        {
-            string path = System.IO.Path.GetRandomFileName();
-            path = path.Replace(".", ""); // Remove period.
-            return path;
-        }
-    }
 }
