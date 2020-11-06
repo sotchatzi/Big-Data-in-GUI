@@ -59,10 +59,4 @@ namespace Create_List_WPF
         //Generate string list through yield
 
     }
-
-    //TextboxText: elapsed time setter and getter
-
-    //ItemList: random string generator setter and getter
-
-    //RandomUtil: random strim generator
 }
