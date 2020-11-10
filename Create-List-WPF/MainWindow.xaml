@@ -9,19 +9,29 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
 <!--            <RowDefinition Height="*" /> -->
         </Grid.RowDefinitions>
-        <TextBlock Name="ElapsedTime" Grid.Column="1"
+        <TextBlock Name="ElapsedTime1" Grid.Column="2"
                    HorizontalAlignment="Center">
             <Run Text="The execution time is: "/>
             <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
             <Run Text="s"/>
         </TextBlock>
-        <ListBox Name="DisplayBox" Grid.Column="0"  Grid.Row="0">
+
+        <TextBlock Name="ElapsedTime2" Grid.Column="3"
+                   HorizontalAlignment="Center">
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+
+        <ListBox Name="DisplayBox1" Grid.Column="0"  Grid.Row="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -31,6 +41,17 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
             
+        </ListBox>
+        <ListBox Name="DisplayBox2" Grid.Column="1"  Grid.Row="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AnIndex}" Margin="0 0 10 0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AString}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
         </ListBox>
 
     </Grid>

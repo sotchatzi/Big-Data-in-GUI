@@ -28,35 +28,23 @@ namespace Create_List_WPF
         {
             InitializeComponent();
 
-            //Start timestamp
+            int size = 10000;
+            IGenerator generator1 = new SlowGenerator();
+            IGenerator generator2 = new YieldGenerator();
+
             Stopwatch stopWatch = new Stopwatch();
+
             stopWatch.Start();
-
-            //One million size
-            //            IEnumerable<ItemList> items = Generate(1000000);
-
-            //One million size and display in the GUI through yield
-            //            DisplayBox.ItemsSource = GenerateYield(1000000);
-
-            //10 million size and display in the GUI through yield
-            IGenerator generator = new ForLoopGenerator();
-            DisplayBox.ItemsSource = generator.Generate(1000000);
-
-            //End timestamp
+            DisplayBox1.ItemsSource = generator1.Generate(size);
             stopWatch.Stop();
-            //Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
+            ElapsedTime1.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
 
-            //Display random strings
-//            DisplayBox.ItemsSource = items;
-            //Display elapsed time
-            ElapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
+            stopWatch.Restart();
+            DisplayBox2.ItemsSource = generator2.Generate(size);
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            ElapsedTime2.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
         }
-
-        //for loop implementation
-
-
-        //Generate string list through yield
-
     }
 }
