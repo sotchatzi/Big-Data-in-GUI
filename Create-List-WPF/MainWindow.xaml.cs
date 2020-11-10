@@ -28,23 +28,22 @@ namespace Create_List_WPF
         {
             InitializeComponent();
 
-            int size = 10000;
+            int size = 1000;
             IGenerator generator1 = new SlowGenerator();
             IGenerator generator2 = new YieldGenerator();
 
-            Stopwatch stopWatch = new Stopwatch();
+            PopulateGUI(generator1, DisplayBox1, ElapsedTime1, size);
+            PopulateGUI(generator2, DisplayBox2, ElapsedTime2, size);
+        }
 
+        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, int size)
+        {
+            Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            DisplayBox1.ItemsSource = generator1.Generate(size);
+            displayBox.ItemsSource = generator.Generate(size);
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
-            ElapsedTime1.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
-
-            stopWatch.Restart();
-            DisplayBox2.ItemsSource = generator2.Generate(size);
-            stopWatch.Stop();
-            ts = stopWatch.Elapsed;
-            ElapsedTime2.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
+            elapsedTime.DataContext = new TextboxText() {seconds = ts.Seconds, milliseconds = ts.Milliseconds};
         }
     }
 }
