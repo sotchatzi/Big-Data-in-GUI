@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create-List-WPF", "Create-List-WPF\Create-List-WPF.csproj", "{32D3AB54-657D-40BF-869B-5B92E076E75F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{26B350A0-FE5A-4306-BE8E-2F3F9B707C52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{26B350A0-FE5A-4306-BE8E-2F3F9B707C52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreaded_GUI", "MultiThreaded_GUI\MultiThreaded_GUI.csproj", "{0BBFE276-8966-4CAF-AB76-43FC2BCE4D8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{26B350A0-FE5A-4306-BE8E-2F3F9B707C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B350A0-FE5A-4306-BE8E-2F3F9B707C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26B350A0-FE5A-4306-BE8E-2F3F9B707C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBFE276-8966-4CAF-AB76-43FC2BCE4D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBFE276-8966-4CAF-AB76-43FC2BCE4D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBFE276-8966-4CAF-AB76-43FC2BCE4D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBFE276-8966-4CAF-AB76-43FC2BCE4D8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
