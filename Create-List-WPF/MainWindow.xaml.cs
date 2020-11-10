@@ -33,79 +33,48 @@ namespace Create_List_WPF
 
         }
 
+        //Yield implementation
         private void generateYield_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (generateYield.IsChecked == true)
             {
-                //Start timestamp
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-
-                //One million size
-                //            IEnumerable<ItemList> items = Generate(1000000);
-
-                //One million size and display in the GUI through yield
-                //            DisplayBox.ItemsSource = GenerateYield(1000000);
-
-
-                //10 million size and display in the GUI through yield
                 IGenerator generator = new YieldGenerator();
-                int size = Convert.ToInt32(NumberOfList.Text);
-                DisplayBoxYield.ItemsSource = generator.Generate(size);
-
-                //End timestamp
-                stopWatch.Stop();
-                //Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = stopWatch.Elapsed;
-
-                //Display random strings
-                //            DisplayBox.ItemsSource = items;
-                //Display elapsed time
-                ElapsedTimeYield.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
+                PopulateGUI(generator, DisplayBoxYield, ElapsedTimeYield, NumberOfList);
             }
-
         }
-        //for loop implementation
+
+        //For loop implementation
         private void generateFor_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (generateFor.IsChecked == true)
             {
-                //Start timestamp
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-
-                //One million size
-                //            IEnumerable<ItemList> items = Generate(1000000);
-
-                //One million size and display in the GUI through yield
-                //            DisplayBox.ItemsSource = GenerateYield(1000000);
-
-
-                //10 million size and display in the GUI through yield
                 IGenerator generator = new ForLoopGenerator();
-                int size = Convert.ToInt32(NumberOfList.Text);
-                DisplayBoxFor.ItemsSource = generator.Generate(size);
-
-
-
-                //End timestamp
-                stopWatch.Stop();
-                //Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = stopWatch.Elapsed;
-
-                //Display random strings
-                //            DisplayBox.ItemsSource = items;
-                //Display elapsed time
-                ElapsedTimeFor.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
+                PopulateGUI(generator, DisplayBoxFor, ElapsedTimeFor, NumberOfList);
             }
-
         }
 
+        //Validate that the textbox accepts only numbers
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
+        //Populate the list in GUI and take the time back
+        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList )
+        {
+            //Start timestamp
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            //Retrieve size from the TextBox
+            int size = Convert.ToInt32(NumberOfList.Text);
+            //Display the random list
+            displayBox.ItemsSource = generator.Generate(size);
+            //End timestamp
+            stopWatch.Stop();
+            //Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+            //Display elapsed time
+            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
+        }
     }
 }
