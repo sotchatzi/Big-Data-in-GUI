@@ -1,19 +1,35 @@
-name: .NET Core
+name: .NET Framework
 
-on:
-  push:
+on: [push, pull_request]
+  #push:
+   # branches: [ workflow ]
+#    branches: [ master ]  
+#  pull_request:
 #    branches: [ master ]
-  pull_request:
-#    branches: [ master ]
-
 jobs:
   build:
-
+ 
     runs-on: windows-latest
 
+    strategy:
+      matrix:
+        targetplatform: [x64]
+
+    env:
+      SigningCertificate: GitHubActionsDemo.pfx
+      Solution_Path: Create-List-WPF.sln
+#      Test_Project_Path: Create-List-WPF.Tests\Create-List-WPF.Tests.csproj
+#      Wpf_Project_Path: Create-List-WPF\Create-List-WPF.csproj
+#      Wap_Project_Directory: Create-List-WPF.Package
+#      Wap_Project_Name: Create-List-WPF.Package.wapproj
+  
     steps:
     - uses: actions/checkout@v1
       name: Checkout Code
      
     - name: Setup MSBuild Path
-      uses: sotchatzi/Setup-MSBuild@v1
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+      # Build the Windows Application Packaging project
+    - name: Build the Windows Application Packaging Project (wapproj) 
+      run: msbuild $env:Solution_Path 
