@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +12,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//Random util class
 using System.IO;
+//stopwatch
+using System.Diagnostics;
+//number validation
+using System.Text.RegularExpressions;
+
 
 namespace Create_List_WPF
 {
@@ -26,47 +31,50 @@ namespace Create_List_WPF
         {
             InitializeComponent();
 
-            // time stamp 1
-
-            IEnumerable<ItemList> items = Generate();
-
-            // time stamp 2
-
-
-           DisplayBox.ItemsSource = items;
         }
 
-        private IEnumerable<ItemList> Generate()
+        //Yield implementation
+        private void generateYield_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            int i;
-            List<ItemList> items = new List<ItemList>();
-            for (i = 0; i < 1000000; i++)
+            if (generateYield.IsChecked == true)
             {
-                items.Add(new ItemList() {AnIndex = i, AString = RandomUtil.GetRandomString()});
+                IGenerator generator = new YieldGenerator();
+                PopulateGUI(generator, DisplayBoxYield, ElapsedTimeYield, NumberOfList);
             }
-
-            return items;
         }
-    }
 
-    public class ItemList
-    {
-        public string AString { get; set; }
-        public int AnIndex { get; set; }
-    }
-
-    static class RandomUtil
-    {
-        /// https://www.dotnetperls.com/random-string
-        /// <summary>
-        /// Get random string of 11 characters.
-        /// </summary>
-        /// <returns>Random string.</returns>
-        public static string GetRandomString()
+        //For loop implementation
+        private void generateFor_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.GetRandomFileName();
-            path = path.Replace(".", ""); // Remove period.
-            return path;
+            if (generateFor.IsChecked == true)
+            {
+                IGenerator generator = new ForLoopGenerator();
+                PopulateGUI(generator, DisplayBoxFor, ElapsedTimeFor, NumberOfList);
+            }
+        }
+
+        //Validate that the textbox accepts only numbers
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        //Populate the list in GUI and take the time back
+        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList )
+        {
+            //Start timestamp
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            //Retrieve size from the TextBox
+            int size = Convert.ToInt32(NumberOfList.Text);
+            //Display the random list
+            displayBox.ItemsSource = generator.Generate(size);
+            //End timestamp
+            stopWatch.Stop();
+            //Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+            //Display elapsed time
+            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
         }
     }
 }

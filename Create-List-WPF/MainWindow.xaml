@@ -5,16 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Create_List_WPF"
         mc:Ignorable="d"
-        Title="CreateList" Height="450" Width="800">
-    <Grid>
+        Title="CreateList" Height="450" Width="550">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </Window.Resources>
+
+    <Grid Margin="20 20 20 20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" /> 
         </Grid.RowDefinitions>
-
-        <ListBox Name="DisplayBox" Grid.Column="1"  Grid.Row="1">
+        <!-- Generate list with yield -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Random list via yield" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 0"/>
+        <ListBox Name="DisplayBoxYield" Grid.Column="0"  Grid.Row="1" Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateYield, Converter={StaticResource VisibleIfTrueConverter}}"
+                 >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -23,8 +36,52 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            
         </ListBox>
+        <TextBlock Name="ElapsedTimeYield" Grid.Column="0" Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateYield, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+        <!-- Generate list with for -->
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Random list via for loop" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 0"/>
+        <ListBox Name="DisplayBoxFor" Grid.Column="1"  Grid.Row="1" Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateFor, Converter={StaticResource VisibleIfTrueConverter}}"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AnIndex}" Margin="0 0 10 0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AString}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Name="ElapsedTimeFor" Grid.Column="1" Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateFor, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+        <!-- Checkbox -->
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"
+                   HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Label FontWeight="Bold">Add the number of elements</Label>
+            <TextBox x:Name="NumberOfList" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
+                     Text="{Binding Path=FirstName, FallbackValue=1000}"/>
+            <Label FontWeight="Bold">Choose Generator</Label>
+            <CheckBox Name="generateYield" Checked="generateYield_CheckedChanged">Generate via yield</CheckBox>
+            <CheckBox Name="generateFor" Checked="generateFor_CheckedChanged">Generate via for loop</CheckBox> 
+        </StackPanel>
+
 
     </Grid>
 </Window>
