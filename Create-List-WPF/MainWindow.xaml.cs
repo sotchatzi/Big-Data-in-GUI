@@ -72,6 +72,7 @@ namespace Create_List_WPF
             //End timestamp
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
+            //test
             TimeSpan ts = stopWatch.Elapsed;
             //Display elapsed time
             elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
