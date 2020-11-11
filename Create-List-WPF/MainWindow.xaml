@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Create_List_WPF"
         mc:Ignorable="d"
-        Title="CreateList" Height="450" Width="550">
+        Title="CreateList" Height="450" Width="750">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
@@ -13,6 +13,7 @@
 
     <Grid Margin="20 20 20 20">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
@@ -70,8 +71,32 @@
             <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
             <Run Text="s"/>
         </TextBlock>
+        <!-- Generate list with SlowGenerator -->
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Random list via slow yield" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 0"/>
+        <ListBox Name="DisplayBoxSlow1" Grid.Column="2"  Grid.Row="1" Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateSlow1, Converter={StaticResource VisibleIfTrueConverter}}"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AnIndex}" Margin="0 0 10 0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AString}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Name="ElapsedTimeSlow1" Grid.Column="2" Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateSlow1, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
         <!-- Checkbox -->
-        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"
+        <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="3"
                    HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <Label FontWeight="Bold">Add the number of elements</Label>
@@ -80,6 +105,7 @@
             <Label FontWeight="Bold">Choose Generator</Label>
             <CheckBox Name="generateYield" Checked="generateYield_CheckedChanged">Generate via yield</CheckBox>
             <CheckBox Name="generateFor" Checked="generateFor_CheckedChanged">Generate via for loop</CheckBox> 
+            <CheckBox Name="generateSlow1" Checked="generateSlow1_CheckedChanged">Generate via yield slow</CheckBox> 
         </StackPanel>
 
 

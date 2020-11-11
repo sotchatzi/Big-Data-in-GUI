@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="ItemList.cs" />
     <Compile Include="RandomUtil.cs" />
+    <Compile Include="SlowGenerator.cs" />
     <Compile Include="TextboxText.cs" />
     <Compile Include="YieldGenerator.cs" />
     <Page Include="MainWindow.xaml">

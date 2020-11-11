@@ -53,6 +53,16 @@ namespace Create_List_WPF
             }
         }
 
+        //yield slow implementation
+        private void generateSlow1_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateSlow1.IsChecked == true)
+            {
+                IGenerator generator = new SlowGenerator();
+                PopulateGUI(generator, DisplayBoxSlow1, ElapsedTimeSlow1, NumberOfList);
+            }
+        }
+
         //Validate that the textbox accepts only numbers
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
