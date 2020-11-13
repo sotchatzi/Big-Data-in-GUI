@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace MultiThreaded_GUI
 {
@@ -17,6 +18,7 @@ namespace MultiThreaded_GUI
     {
 
         public static Collection<string> collection = new ObservableCollection<string>();
+        private static Mutex mut = new Mutex();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,8 +30,9 @@ namespace MultiThreaded_GUI
             //StackPanel sp = new StackPanel();
             //sp.Margin = new Thickness(0, 0, 0, 0);
             //sp.Orientation = Orientation.Vertical;
-            //List<ItemList> DisplayBox = new List<ItemList>();
-            //PopulateGUI(DisplayBox);
+            //List<ItemList> Display = new List<ItemList>();
+            //PopulateGUI(Display);
+            //DisplayBox.ItemsSource = Display;
 
         }
 
@@ -57,7 +60,7 @@ namespace MultiThreaded_GUI
             // Perform a long running work...
             for (var i = 0; i < 60; i++)
             {
-                Task.Delay(500).Wait();
+                Task.Delay(100).Wait();
                 item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
                 progress.Report(item);
             }
@@ -91,11 +94,11 @@ namespace MultiThreaded_GUI
          }*/
         private void Runtask(int num)
         {
-            Thread newThread = new Thread(new ParameterizedThreadStart(GetResult));
+            Thread newThread = new Thread(new ParameterizedThreadStart(GetResult1));
             newThread.Start(num);
         }
-        
-        
+
+        /**/
         /// <summary>
         /// Generate in worker thread, GUI in main thread
         /// </summary>
@@ -107,23 +110,22 @@ namespace MultiThreaded_GUI
             this.Dispatcher.BeginInvoke((Action)delegate ()
             {
                 this.DisplayBox.ItemsSource = result;
+                //return an IEnumerable<ItemList> object, so cannot read single record from this
+                Thread.Sleep(100);
             });
         }
-        
-        /*
-        private IEnumerable<ItemList> BadGenerator(int size)
-        {
-            Random interval = new Random();
-            for (int i = 0; i < size; i++)
-            {
-                Task.Delay(interval.Next(0, 2)).Wait();
-                yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
-            }
+        //private IEnumerable<ItemList> BadGenerator(int size)
+        //{
+        //    Random interval = new Random();
+        //    for (int i = 0; i < size; i++)
+        //    {
+        //        Task.Delay(interval.Next(0, 2)).Wait();
+        //        yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+        //    }
 
-        }*/
+        // }
 
 
-        /*
         /// <summary>
         /// another method (needs a lock between threads)
         /// </summary>
@@ -133,14 +135,47 @@ namespace MultiThreaded_GUI
             List<ItemList> items = new List<ItemList>();
             for (int i = 0; i < (int)inputNumber; i++)
             {
-                Thread.Sleep(100);
-                items.Add(new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() });      
+                
+                if (mut.WaitOne(1000000))
+                {
+                    try
+                    {
+                        //DateTime dt1 = DateTime.Now;
+                        //while ((DateTime.Now - dt1).TotalMilliseconds < 10)
+                        //{
+                        //    continue;
+                        //};
+                        Thread.Sleep(100);
+                        items.Add(new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() });
+                        mut.ReleaseMutex();
+                    }
+                    finally
+                    {
+                        this.Dispatcher.BeginInvoke((Action)delegate ()
+                        {
+                            this.DisplayBox.ItemsSource = items;
+                        });
+                        
+
+                    }
+                    
+                    
+                    
+                }
+                
+
                 this.Dispatcher.BeginInvoke((Action)delegate ()
-            {
+            {   
                 this.DisplayBox.ItemsSource = items;
             });
             }
-        }*/
+        }
 
     }
+    public class ProgressPartialResult
+    {
+        public int Current { get; set; }
+        public int Total { get; set; }
+    }
+
 }

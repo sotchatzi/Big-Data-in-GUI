@@ -20,17 +20,22 @@
         <Button Height="21" Width="50" Content="start" Click="Button_Click" Margin="225,250,225,145"></>
 
     </Grid> -->
-    
-    
-    <Grid>
+
+
+    <Grid Margin="20 20 20 20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ListBox Name="DisplayBox" Grid.Column="1"  Grid.Row="1">
+        <ListBox Name="DisplayBox" Grid.Column="0"  Grid.Row="1" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -39,7 +44,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-
         </ListBox>
+        <ProgressBar Height="23" HorizontalAlignment="Left" Margin="32,124,0,0" Name="progressBar1" VerticalAlignment="Top" Width="432" />
     </Grid>
 </Window>

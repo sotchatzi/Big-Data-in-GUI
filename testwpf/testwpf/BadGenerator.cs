@@ -12,7 +12,7 @@ namespace MultiThreaded_GUI
             Random interval = new Random();
             for (int i = 0; i < size; i++)
             {
-                Thread.Sleep(interval.Next(0, 2));
+                //Thread.Sleep(interval.Next(0, 2));
                 yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
             }
 
