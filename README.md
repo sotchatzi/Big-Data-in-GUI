@@ -12,5 +12,3 @@ The project build in Visual Studio 2019 using:
 The user can define in the GUI the size of the list and can select through the checkbox which strategy is going to populate the list.
 
 
-
-
