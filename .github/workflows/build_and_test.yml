@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        targetplatform: [x86]
+        targetplatform: [x64]
 
     env:
       SigningCertificate: GitHubActionsDemo.pfx
