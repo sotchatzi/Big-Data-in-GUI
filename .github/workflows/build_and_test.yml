@@ -50,5 +50,8 @@ jobs:
     - name: Build the Windows Application Packaging Project (wapproj) 
       run: msbuild $env:Solution_Path 
       
+    - name: Build the NUnitTestCreatList for unit testing
+      run: msbuild NUnitTestCreatList
+      
     - name: NUnit 
-      run: dotnet test $env:Solution_Path
+      run: dotnet test
