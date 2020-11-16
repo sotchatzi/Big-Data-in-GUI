@@ -36,6 +36,13 @@ jobs:
       
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.0.2
+
+    - uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+    
+    - run: nuget restore $env:Solution_Path
       
       # Build the Windows Application Packaging project
     - name: Build the Windows Application Packaging Project (wapproj) 
