@@ -30,10 +30,9 @@ jobs:
     - name:  Setup .NET Core 
       uses: actions/setup-dotnet@v1
       with:
-          dotnet-version: '2.2' 
+        dotnet-version: '3.1.x'      
             
-    - run: dotnet test
-      name: NUnit
+  
       
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.0.2
@@ -41,3 +40,6 @@ jobs:
       # Build the Windows Application Packaging project
     - name: Build the Windows Application Packaging Project (wapproj) 
       run: msbuild $env:Solution_Path 
+      
+    - name: NUnit 
+      run: dotnet test
