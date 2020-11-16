@@ -37,14 +37,14 @@ jobs:
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.0.2
 
-  #  - name: Setup nuget
-  #    uses: nuget/setup-nuget@v1
-  #    with:
-  #      nuget-api-key: ${{ secrets.NuGetAPIKey }}
-  #      nuget-version: '5.x'
+    - name: Setup nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
     
-  #  - name: Restore nuget
-  #    run: nuget restore $env:Solution_Path
+    - name: Restore nuget
+      run: nuget restore $env:Solution_Path
       
     - name: Build the NUnitTestCreatList for unit testing
       run: msbuild NUnitTestCreatList
@@ -56,4 +56,4 @@ jobs:
    
       
     - name: NUnit 
-      run: dotnet test 
+      run: dotnet test $env:Solution_Path
