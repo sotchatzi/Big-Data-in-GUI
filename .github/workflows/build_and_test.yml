@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        targetplatform: [x86]
+        targetplatform: [x64]
 
     env:
       SigningCertificate: GitHubActionsDemo.pfx
@@ -46,12 +46,14 @@ jobs:
     - name: Restore nuget
       run: nuget restore $env:Solution_Path
       
+    - name: Build the NUnitTestCreatList for unit testing
+      run: msbuild NUnitTestCreatList
+      
       # Build the Windows Application Packaging project
     - name: Build the Windows Application Packaging Project (wapproj) 
       run: msbuild $env:Solution_Path 
       
-    - name: Build the NUnitTestCreatList for unit testing
-      run: msbuild NUnitTestCreatList
+   
       
     - name: NUnit 
       run: dotnet test
