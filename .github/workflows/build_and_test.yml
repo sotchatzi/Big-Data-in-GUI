@@ -51,4 +51,4 @@ jobs:
       run: msbuild $env:Solution_Path 
       
     - name: NUnit 
-      run: dotnet test
+      run: dotnet test $env:Solution_Path
