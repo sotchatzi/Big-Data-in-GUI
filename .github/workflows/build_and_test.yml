@@ -46,8 +46,8 @@ jobs:
     - name: Restore nuget
       run: nuget restore $env:Solution_Path
       
-    #- name: Build the NUnitTestCreatList for unit testing
-     # run: msbuild NUnitTestCreatList
+    - name: Build the NUnitTestCreatList for unit testing
+      run: msbuild NUnitTestCreatList
       
       # Build the Windows Application Packaging project
     - name: Build the Windows Application Packaging Project (wapproj) 
