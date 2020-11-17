@@ -56,4 +56,4 @@ jobs:
    
       
     - name: NUnit 
-      run: dotnet test $env:Solution_Path
+      run: dotnet test NUnitTestCreatList.csproj
