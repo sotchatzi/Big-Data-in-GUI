@@ -21,14 +21,17 @@ namespace NUnitTestCreatList
             Assert.AreEqual(10000, collection.Count);
         }
 
-        //[Test]
-        //wait for debug
+        [Test]
         public void TestYieldGenerator()
         {
             var generator = new YieldGenerator();
             var result = generator.Generate(10000);
-            ICollection collection = result as ICollection;
-            Assert.AreEqual(10000, collection.Count);
+            int total = 0;
+            foreach(ItemList item in result)
+            {
+                total += 1;
+            }
+            Assert.AreEqual(10000, total);
         }
     }
 }
