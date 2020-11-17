@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <Platform>x64</Platform>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <NoWarn>NU1701</NoWarn>
     <IsPackable>false</IsPackable>
     <Platforms>AnyCPU;x64</Platforms>
