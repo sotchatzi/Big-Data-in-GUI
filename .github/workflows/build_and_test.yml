@@ -26,7 +26,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: Checkout Code
-
+    - name: TEST
+      run: dotnet test
     - name:  Setup .NET Core 
       uses: actions/setup-dotnet@v1
       with:
@@ -34,27 +35,25 @@ jobs:
             
   
       
-#    - name: Setup MSBuild Path
-#      uses: microsoft/setup-msbuild@v1.0.2
-#
- #   - name: Setup nuget
- #     uses: nuget/setup-nuget@v1
- #     with:
- #       nuget-api-key: ${{ secrets.NuGetAPIKey }}
- #       nuget-version: '5.x'
+    - name: Setup MSBuild Path
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
     
- #   - name: Restore nuget
- #     run: nuget restore $env:Solution_Path
+    - name: Restore nuget
+      run: nuget restore $env:Solution_Path
       
- #   - name: Build the NUnitTestCreatList for unit testing
- #     run: msbuild NUnitTestCreatList
+    - name: Build the NUnitTestCreatList for unit testing
+      run: msbuild NUnitTestCreatList
       
       # Build the Windows Application Packaging project
- #   - name: Build the Windows Application Packaging Project (wapproj) 
- #     run: msbuild $env:Solution_Path 
+    - name: Build the Windows Application Packaging Project (wapproj) 
+      run: msbuild $env:Solution_Path 
       
-    - name: NUnit  
-      run: dotnet test 
       
- #   - name: NUnit 
- #     run: dotnet test D:\a\Big-Data-in-GUI\Big-Data-in-GUI\NUnitTestCreatList\NUnitTestCreatList.csproj
+    - name: NUnit 
+      run: dotnet test D:\a\Big-Data-in-GUI\Big-Data-in-GUI\NUnitTestCreatList\NUnitTestCreatList.csproj
