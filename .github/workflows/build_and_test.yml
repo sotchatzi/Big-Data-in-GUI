@@ -56,4 +56,4 @@ jobs:
    
       
     - name: NUnit 
-      run: dotnet test D:\a\Big-Data-in-GUI\Big-Data-in-GUI\NUnitTestCreatList\NUnitTestCreatList.csproj
+      run: dotnet test D:\a\Big-Data-in-GUI\Big-Data-in-GUI\Create-List-WPF\Create-List-WPF.csproj
