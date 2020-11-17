@@ -1,4 +1,4 @@
-name: .NET Framework
+name: Build and unit test
 
 on: [push, pull_request]
   #push:
@@ -24,12 +24,33 @@ jobs:
 #      Wap_Project_Name: Create-List-WPF.Package.wapproj
   
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       name: Checkout Code
-     
+
+    - name:  Setup .NET Core 
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'      
+            
+  
+      
     - name: Setup MSBuild Path
       uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+    
+    - name: Restore nuget
+      run: nuget restore $env:Solution_Path
       
       # Build the Windows Application Packaging project
     - name: Build the Windows Application Packaging Project (wapproj) 
       run: msbuild $env:Solution_Path 
+      
+   
+      
+    - name: NUnit 
+      run: dotnet test $env:Solution_Path

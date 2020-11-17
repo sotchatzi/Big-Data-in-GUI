@@ -1,4 +1,4 @@
-﻿namespace Create_List_WPF
+﻿namespace Generators
 {
     //ItemList: random string generator setter and getter
     public class ItemList

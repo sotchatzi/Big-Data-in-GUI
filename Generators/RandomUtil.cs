@@ -1,4 +1,4 @@
-﻿namespace Create_List_WPF
+﻿namespace Generators
 {
 
     //RandomUtil: random strim generator
