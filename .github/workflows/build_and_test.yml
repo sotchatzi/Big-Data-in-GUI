@@ -26,8 +26,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: Checkout Code
+    
+    - name: Restore nuget
+      run: nuget restore $env:Solution_Path
+      
     - name: TEST
       run: dotnet test
+      
     - name:  Setup .NET Core 
       uses: actions/setup-dotnet@v1
       with:
