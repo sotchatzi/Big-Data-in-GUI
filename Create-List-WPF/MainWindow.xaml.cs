@@ -64,6 +64,24 @@ namespace Create_List_WPF
             }
         }
 
+        //One by one implementation
+        private void generateOneByOne_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateOneByOne.IsChecked == true)
+            {
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);
+//                DisplayBoxOneByOne.Items.Refresh();
+            }
+        }
+
+        private void generateOneByOne_UnCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateOneByOne.IsChecked == false)
+            {
+                DisplayBoxOneByOne.Items.Clear();
+            }
+        }
+
         //Validate that the textbox accepts only numbers
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
@@ -85,8 +103,10 @@ namespace Create_List_WPF
             //Get the elapsed time as a TimeSpan value.
             //test
             TimeSpan ts = stopWatch.Elapsed;
+
+            double minutesToSeconds = ts.Minutes * 60;
             //Display elapsed time
-            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
+            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
         }
     }
 }
