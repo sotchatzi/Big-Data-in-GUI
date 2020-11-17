@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Create_List_WPF
 {
+    ///
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -44,6 +45,16 @@ namespace Create_List_WPF
             }
         }
 
+        //yield slow implementation
+        private void generateSlow1_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateSlow1.IsChecked == true)
+            {
+                IGenerator generator = new SlowGenerator();
+                PopulateGUI(generator, DisplayBoxSlow1, ElapsedTimeSlow1, NumberOfList);
+            }
+        }
+
         //Validate that the textbox accepts only numbers
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
@@ -63,6 +74,7 @@ namespace Create_List_WPF
             //End timestamp
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
+            //test
             TimeSpan ts = stopWatch.Elapsed;
             //Display elapsed time
             elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds, milliseconds = ts.Milliseconds };
