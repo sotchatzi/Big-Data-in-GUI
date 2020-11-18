@@ -5,7 +5,7 @@ The project of Big Data in GUI investigates different techniques to populate str
 ## Build
 
 The project build in Visual Studio 2019 using:
-  * `.NET Framework 4.7.2`
+  * `.NET Core 3.1` 
 
 ## Usage 
 
