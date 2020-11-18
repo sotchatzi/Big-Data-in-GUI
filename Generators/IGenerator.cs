@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Create_List_WPF
+namespace Generators
 {
     public interface IGenerator
     {

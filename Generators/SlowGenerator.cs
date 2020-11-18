@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 
-namespace Create_List_WPF
+namespace Generators
 {
     public class SlowGenerator : IGenerator
     {
