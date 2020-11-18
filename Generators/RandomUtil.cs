@@ -1,8 +1,8 @@
 ﻿namespace Generators
 {
 
-    //RandomUtil: random strim generator
-    static class RandomUtil
+    //RandomUtil: random string generator
+    public static class RandomUtil
     {
         /// <summary>
         /// https://www.dotnetperls.com/random-string
