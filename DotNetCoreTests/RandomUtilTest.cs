@@ -10,7 +10,9 @@ namespace DotNetCoreTests
         [Test(ExpectedResult = 11), Description("It tests if the length of a string is the expected length of size 11")]
         public int TestLength()
         {
-            string randomText = RandomUtil.GetRandomString();
+            var randomString = new RandomUtil();
+
+            string randomText = randomString.GetRandomString(1, 0, 0, 0);
             int lengthRandomText = randomText.Length;
 
             return lengthRandomText;
@@ -19,8 +21,10 @@ namespace DotNetCoreTests
         [Test(ExpectedResult = true), Description("It tests if two strings are the same")]
         public bool TestRandomness()
         {
-            string randomText1 = RandomUtil.GetRandomString();
-            string randomText2 = RandomUtil.GetRandomString();
+            var randomString = new RandomUtil();
+
+            string randomText1 = randomString.GetRandomString(1, 0, 0, 0);
+            string randomText2 = randomString.GetRandomString(1, 0, 0, 0);
 
             return randomText1 != randomText2;
         }
@@ -29,10 +33,11 @@ namespace DotNetCoreTests
         //size parameter defined as a number between 1000 and 10000 and runs 5 times
         public void TestStringReproducedInList([Random(1000, 10000, 5)] int size)
         {
+            var randomString = new RandomUtil();
             List<string> stringList = new List<string>();
             for(int i = 1; i < size; i++)
             {
-                stringList.Add(RandomUtil.GetRandomString());
+                stringList.Add(randomString.GetRandomString(1, 0, 0, 0));
             }
             Assert.AreEqual(stringList.Count, stringList.Distinct().Count());
         }
@@ -41,12 +46,13 @@ namespace DotNetCoreTests
         //size parameter defined as a number between 1000 and 10000 and runs 5 times
         public void TestStringExistInList([Random(1000, 10000, 5)] int size)
         {
+            var randomString = new RandomUtil();
             List<string> stringList = new List<string>();
             for(int i = 0; i < size; i++)
             {
-                stringList.Add(RandomUtil.GetRandomString());
+                stringList.Add(randomString.GetRandomString(1, 0, 0, 0));
             }
-            Assert.True(stringList.Exists(x => x != RandomUtil.GetRandomString()));
+            Assert.True(stringList.Exists(x => x != randomString.GetRandomString(1, 0, 0, 0)));
         }
     }
 }

@@ -30,8 +30,11 @@ namespace Create_List_WPF
         {
             if (generateYield.IsChecked == true)
             {
+                //Percentage of slow generated strings
+                double slowPercentSize = 0;
+                double failurePercentSize = 0;
                 IGenerator generator = new YieldGenerator();
-                PopulateGUI(generator, DisplayBoxYield, ElapsedTimeYield, NumberOfList);
+                PopulateGUI(generator, DisplayBoxYield, ElapsedTimeYield, NumberOfList, slowPercentSize, failurePercentSize);
             }
         }
 
@@ -40,8 +43,11 @@ namespace Create_List_WPF
         {
             if (generateFor.IsChecked == true)
             {
+                //Percentage of slow generated strings
+                double slowPercentSize = 0;
+                double failurePercentSize = 0;
                 IGenerator generator = new ForLoopGenerator();
-                PopulateGUI(generator, DisplayBoxFor, ElapsedTimeFor, NumberOfList);
+                PopulateGUI(generator, DisplayBoxFor, ElapsedTimeFor, NumberOfList, slowPercentSize, failurePercentSize);
             }
         }
 
@@ -50,8 +56,11 @@ namespace Create_List_WPF
         {
             if (generateSlow1.IsChecked == true)
             {
+                //Percentage of slow generated strings
+                double slowPercentSize = 0.2;
+                double failurePercentSize = 0;
                 IGenerator generator = new SlowGenerator();
-                PopulateGUI(generator, DisplayBoxSlow1, ElapsedTimeSlow1, NumberOfList);
+                PopulateGUI(generator, DisplayBoxSlow1, ElapsedTimeSlow1, NumberOfList, slowPercentSize, failurePercentSize);
             }
         }
 
@@ -60,7 +69,9 @@ namespace Create_List_WPF
         {
             if (generateOneByOne.IsChecked == true)
             {
-                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);
+                double slowPercentSize = 0;
+                double failurePercentSize = 0;
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne, slowPercentSize, failurePercentSize);
 //                DisplayBoxOneByOne.Items.Refresh();
             }
         }
@@ -80,19 +91,23 @@ namespace Create_List_WPF
             e.Handled = regex.IsMatch(e.Text);
         }
         //Populate the list in GUI and take the time back
-        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList )
+        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, double slowPercentSize, double failurePercentSize)
         {
             //Start timestamp
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             //Retrieve size from the TextBox
             int size = Convert.ToInt32(NumberOfList.Text);
+
+            //Transform percentage to number of elements
+            double slowSize = slowPercentSize * size;
+            double failureSize = failurePercentSize * size;
+
             //Display the random list
-            displayBox.ItemsSource = generator.Generate(size);
+            displayBox.ItemsSource = generator.Generate(size, (int)slowSize, (int)failureSize);
             //End timestamp
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
-            //test
             TimeSpan ts = stopWatch.Elapsed;
 
             double minutesToSeconds = ts.Minutes * 60;

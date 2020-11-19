@@ -16,7 +16,7 @@ namespace Tests
         public void TestForGenerator()
         {
             IGenerator generator = new ForLoopGenerator();
-            IEnumerable<ItemList> result = generator.Generate(10000);
+            IEnumerable<ItemList> result = generator.Generate(10000, 0, 0);
             ICollection collection = result as ICollection;
             Assert.AreEqual(10000, collection.Count);
         }
@@ -25,7 +25,7 @@ namespace Tests
         public void TestYieldGenerator()
         {
             var generator = new YieldGenerator();
-            var result = generator.Generate(10000);
+            var result = generator.Generate(10000, 0, 0);
             int total = 0;
             foreach(ItemList item in result)
             {

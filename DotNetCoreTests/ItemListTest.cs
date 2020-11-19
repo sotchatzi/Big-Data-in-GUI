@@ -10,7 +10,8 @@ namespace DotNetCoreTests
         [Test, Description("Tests that the get() works")]
         public void ItemListGet([Random(1, 1000, 1)] int index)
         {
-            ItemList anItemList = new ItemList() { AnIndex = index, AString = RandomUtil.GetRandomString() };
+            var randomString = new RandomUtil();
+            ItemList anItemList = new ItemList() { AnIndex = index, AString = randomString.GetRandomString(1, 0, 0, index) };
             Assert.That(anItemList.AnIndex, Is.Not.Null);
             Assert.That(anItemList.AString, Is.Not.Null);
         }
@@ -18,7 +19,8 @@ namespace DotNetCoreTests
         [Test, Description("Tests that the set() works")]
         public void ItemListSet([Random(1, 1000, 1)] int index)
         {
-            ItemList anItemList = new ItemList() { AnIndex = index, AString = RandomUtil.GetRandomString() };
+            var randomString = new RandomUtil();
+            ItemList anItemList = new ItemList() { AnIndex = index, AString = randomString.GetRandomString(1, 0, 0, index) };
 
             anItemList.AnIndex = 2;
             anItemList.AString = "updated value";
