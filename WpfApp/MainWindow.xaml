@@ -221,8 +221,8 @@
             <CheckBox Name="generateFor" Checked="generateFor_CheckedChanged">Generate via for loop</CheckBox> 
             <CheckBox Name="generateSlow1" Checked="generateSlow1_CheckedChanged">Generate via yield slow</CheckBox> 
             <CheckBox Name="generateSlow20" Checked="generateSlow20_CheckedChanged">Generate via yield slow 20%</CheckBox> 
-<!--            <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>  
--->
+            <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>  
+
             <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox> 
         </StackPanel>
 

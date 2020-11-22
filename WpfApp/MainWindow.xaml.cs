@@ -58,10 +58,20 @@ namespace Create_List_WPF
         //yield slow 20% implementation
         private void generateSlow20_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (generateSlow1.IsChecked == true)
+            if (generateSlow20.IsChecked == true)
             {
                 IGenerator generator = new Slow20Generator();
                 PopulateGUI(generator, DisplayBoxSlow20, ElapsedTimeSlow20, NumberOfList);
+            }
+        }
+
+        //yield fail 20% implementation
+        private void generateFail20_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateFail20.IsChecked == true)
+            {
+                IGenerator generator = new Fail20Generator();
+                PopulateGUI(generator, DisplayBoxFail20, ElapsedTimeFail20, NumberOfList);
             }
         }
 
