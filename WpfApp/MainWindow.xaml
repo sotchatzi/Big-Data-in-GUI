@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Create_List_WPF"
         mc:Ignorable="d"
-        Title="CreateList" Height="650" Width="920">
+        Title="CreateList" Height="650" Width="950">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
@@ -151,11 +151,11 @@
             <Run Text="s"/>
         </TextBlock>
 
-        <!-- Generate list with Fail10Slow20FailGenerator -->
+        <!-- Generate list with Fail20Slow10FailGenerator -->
         <TextBlock Grid.Row="3" Grid.Column="2" Text="Random list via 20% fail&#x0a; 10% slow yield" HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 10"/>
-        <ListBox Name="DisplayBoxFail10Slow20" Grid.Column="2"  Grid.Row="4" Margin="10 0 10 0"
-                 Visibility="{Binding Path=IsChecked, ElementName=generateFail10Slow20, Converter={StaticResource VisibleIfTrueConverter}}"
+        <ListBox Name="DisplayBoxFail20Slow10" Grid.Column="2"  Grid.Row="4" Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateFail20Slow10, Converter={StaticResource VisibleIfTrueConverter}}"
                  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -166,10 +166,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Name="ElapsedTimeFail10Slow20" Grid.Column="2" Grid.Row="5"
+        <TextBlock Name="ElapsedTimeFail20Slow10" Grid.Column="2" Grid.Row="5"
                    HorizontalAlignment="Center"
                    Margin="5 5 5 5"
-                   Visibility="{Binding Path=IsChecked, ElementName=generateFail10Slow20, Converter={StaticResource VisibleIfTrueConverter}}"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateFail20Slow10, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
             <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
@@ -222,6 +222,7 @@
             <CheckBox Name="generateSlow1" Checked="generateSlow1_CheckedChanged">Generate via yield slow</CheckBox> 
             <CheckBox Name="generateSlow20" Checked="generateSlow20_CheckedChanged">Generate via yield slow 20%</CheckBox> 
             <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>  
+            <CheckBox Name="generateFail20Slow10" Checked="generateFail20Slow10_CheckedChanged">Generate via yield fail 20% &#x0a; and slow 10%</CheckBox>  
 
             <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox> 
         </StackPanel>
