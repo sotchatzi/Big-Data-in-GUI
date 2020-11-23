@@ -35,7 +35,10 @@ jobs:
       run: dotnet build $env:Solution_Path 
            
     - name: NUnit 
-      run: dotnet test $env:Solution_Path
+      run: dotnet test.\DotNetCoreTests\DotNetCoreTests.csproj
 
     - name: Coverage
       run: dotnet test .\DotNetCoreTests\DotNetCoreTests.csproj --collect "Code Coverage" --logger trx
+
+    - name: Performance profiling
+      run: dotnet test .\PerformanceTests\PerformanceTests.csproj
