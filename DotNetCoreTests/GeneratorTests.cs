@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Tests
+namespace GeneratorTests
 {
     public class GeneratorTests
     {
@@ -12,73 +12,70 @@ namespace Tests
         {
         }
 
-        [Test]
-        public void TestForGenerator()
+        static IEnumerable<TestCaseData> SizeGenerator()
+
         {
+
+            yield return new TestCaseData(0);
+
+            yield return new TestCaseData(1);
+
+            yield return new TestCaseData(100000);
+
+
+        }
+
+        [Test]
+        [TestCaseSource("SizeGenerator")]
+        [Description("Tests that the For Loop Generator works")]
+        public void TestForLoopGenerator(int size)
+        {
+            // arrange
             IGenerator generator = new ForLoopGenerator();
-            IEnumerable<ItemList> result_zero_loop = generator.Generate(0);
-            IEnumerable<ItemList> result_one_loop = generator.Generate(1);
-            IEnumerable<ItemList> result_n_loop = generator.Generate(10000);
-            ICollection collection_zero_loop = result_zero_loop as ICollection;
-            Assert.AreEqual(0, collection_zero_loop.Count);
-            ICollection collection_one_loop = result_one_loop as ICollection;
-            Assert.AreEqual(1, collection_one_loop.Count);
-            ICollection collection_n_loop = result_n_loop as ICollection;
-            Assert.AreEqual(10000, collection_n_loop.Count);
+            // act
+            IEnumerable<ItemList> result = generator.Generate(size);
+            ICollection collection = result as ICollection;
+            // assert
+            Assert.AreEqual(size, collection.Count);
         }
-
         [Test]
-        public void TestYieldGenerator()
+        [TestCaseSource(nameof(SizeGenerator))]
+        [Description("Tests that the Yield Generator works")]
+        public void TestYieldGenerator(int size)
         {
+            // arrange
             var generator = new YieldGenerator();
-            var result_zero_loop = generator.Generate(0);
-            int total_zero_loop = 0;
-            foreach(ItemList item in result_zero_loop)
+            // act
+            var result = generator.Generate(size);
+            int total = 0;
+            foreach(ItemList item in result)
             {
-                total_zero_loop += 1;
+                total += 1;
             }
-            Assert.AreEqual(0, total_zero_loop);
-            var result_one_loop = generator.Generate(1);
-            int total_one_loop = 0;
-            foreach (ItemList item in result_one_loop)
-            {
-                total_one_loop += 1;
-            }
-            Assert.AreEqual(1, total_one_loop);
-            var result_n_loop = generator.Generate(10000);
-            int total_n_loop = 0;
-            foreach (ItemList item in result_n_loop)
-            {
-                total_n_loop += 1;
-            }
-            Assert.AreEqual(10000, total_n_loop);
+            // assert
+            Assert.AreEqual(size, total);
+         
         }
-
         [Test]
-        public void TestSlowGenerator()
+        [TestCaseSource(nameof(SizeGenerator))]
+        [Description("Tests that the Slow Generator works")]
+        public void TestSlowGenerator(int size)
         {
+            // arrange
             var generator = new SlowGenerator();
-            var result_zero_loop = generator.Generate(0);
-            int total_zero_loop = 0;
-            foreach (ItemList item in result_zero_loop)
+            // act
+            if(size == 100000)
             {
-                total_zero_loop += 1;
+                size = 100;
             }
-            Assert.AreEqual(0, total_zero_loop);
-            var result_one_loop = generator.Generate(1);
-            int total_one_loop = 0;
-            foreach (ItemList item in result_one_loop)
+            var result = generator.Generate(size);
+            int total = 0;
+            foreach (ItemList item in result)
             {
-                total_one_loop += 1;
+                total += 1;
             }
-            Assert.AreEqual(1, total_one_loop);
-            var result_n_loop = generator.Generate(10000);
-            int total_n_loop = 0;
-            foreach (ItemList item in result_n_loop)
-            {
-                total_n_loop += 1;
-            }
-            Assert.AreEqual(10000, total_n_loop);
+            // assert
+            Assert.AreEqual(size, total);
         } 
     }
 }
