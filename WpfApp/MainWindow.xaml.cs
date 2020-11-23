@@ -22,7 +22,6 @@ namespace Create_List_WPF
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         //Yield implementation
@@ -84,6 +83,17 @@ namespace Create_List_WPF
                 PopulateGUI(generator, DisplayBoxFail20Slow10, ElapsedTimeFail20Slow10, NumberOfList);
             }
         }
+
+
+        private void generateSlowFail_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateSlowFail.IsChecked == true)
+            {
+                IGeneratorSlowFail generator = new FailSlowGenerator();
+                PopulateGUI(generator, DisplayBoxSlowFail, ElapsedTimeSlowFail, NumberOfList, percentageSlow, percentageFail);
+            }
+        }
+
         //One by one implementation
         private void generateOneByOne_CheckedChanged(object sender, RoutedEventArgs e)
         {
@@ -121,7 +131,31 @@ namespace Create_List_WPF
             //End timestamp
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
-            //test
+            TimeSpan ts = stopWatch.Elapsed;
+
+            double minutesToSeconds = ts.Minutes * 60;
+            //Display elapsed time
+            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
+        }
+
+
+        //PopulateGUI for list being generated where the percentage of times out and failures are defined by the user
+        private void PopulateGUI(IGeneratorSlowFail generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, TextBox percentageSlow, TextBox percentageFail)
+        {
+            //Start timestamp
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            //Retrieve size from the TextBox
+            int size = Convert.ToInt32(NumberOfList.Text);
+            int slowPercentageSize = Convert.ToInt32(percentageSlow.Text);
+            int failPercentageSize = Convert.ToInt32(percentageFail.Text);
+
+            //Display the random list
+            displayBox.ItemsSource = generator.Generate(size, slowPercentageSize, failPercentageSize);
+
+            //End timestamp
+            stopWatch.Stop();
+            //Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
 
             double minutesToSeconds = ts.Minutes * 60;
