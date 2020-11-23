@@ -35,7 +35,7 @@ jobs:
       run: dotnet build $env:Solution_Path 
            
     - name: NUnit 
-      run: dotnet test.\DotNetCoreTests\DotNetCoreTests.csproj
+      run: dotnet test .\DotNetCoreTests\DotNetCoreTests.csproj
 
     - name: Coverage
       run: dotnet test .\DotNetCoreTests\DotNetCoreTests.csproj --collect "Code Coverage" --logger trx
