@@ -38,4 +38,4 @@ jobs:
       run: dotnet test $env:Solution_Path
 
     - name: Coverage
-      run: dotnet test $env:Solution_Path\DotNetCoreTests\DotNetCoreTests.csproj --collect "Code Coverage" --logger trx
+      run: dotnet test .\DotNetCoreTests\DotNetCoreTests.csproj --collect "Code Coverage" --logger trx
