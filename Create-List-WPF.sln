@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreTests", "DotNetCoreTests\DotNetCoreTests.csproj", "{7981B57E-D3D2-4506-82BB-EA45BE2D4127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreTests", "DotNetCoreTests\DotNetCoreTests.csproj", "{7981B57E-D3D2-4506-82BB-EA45BE2D4127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generators", "Generators\Generators.csproj", "{B6C17A80-B7D9-483B-89CB-23C29FD4FE41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generators", "Generators\Generators.csproj", "{B6C17A80-B7D9-483B-89CB-23C29FD4FE41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csproj", "{2239037D-F21D-4A5F-950B-BAAC61F40ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "WpfApp\WpfApp.csproj", "{2239037D-F21D-4A5F-950B-BAAC61F40ED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTests", "PerformanceTests\PerformanceTests.csproj", "{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{2239037D-F21D-4A5F-950B-BAAC61F40ED8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2239037D-F21D-4A5F-950B-BAAC61F40ED8}.Release|x64.ActiveCfg = Release|Any CPU
 		{2239037D-F21D-4A5F-950B-BAAC61F40ED8}.Release|x64.Build.0 = Release|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Debug|x64.Build.0 = Debug|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Release|x64.ActiveCfg = Release|Any CPU
+		{C7136934-B9E0-44CC-B491-9BA1FEA4F9CF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
