@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 
 namespace Generators
 {
-    public class FailSlowGenerator : IGeneratorSlowFail
+    public class FailSlowGenerator : IGenerator
     {
-        public IEnumerable<ItemList> Generate(int size, int slowPercentage, int failPercentage)
+        private int _failPercentage;
+        private int _slowPercentage;
+
+        public FailSlowGenerator(int slowPercentage, int failPercentage)
         {
-            double percentSizeSlow = slowPercentage * 0.01 * size;
-            double percentSizeFail = failPercentage * 0.01 * size;
+            _failPercentage = slowPercentage;
+            _slowPercentage = failPercentage;
+        }
+
+        public IEnumerable<ItemList> Generate(int size)
+        {
+            double percentSizeSlow = _slowPercentage * 0.01 * size;
+            double percentSizeFail = _failPercentage * 0.01 * size;
 
             ProblematicElements problematicElements = new ProblematicElements();
             SortedSet<int> problematicSetSlow = problematicElements.CreateSetFromPercentage(size, (int)percentSizeSlow);
@@ -44,7 +51,5 @@ namespace Generators
                 yield return item;
             }
         }
-
-
     }
 }

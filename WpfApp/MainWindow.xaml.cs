@@ -89,8 +89,10 @@ namespace Create_List_WPF
         {
             if (generateSlowFail.IsChecked == true)
             {
-                IGeneratorSlowFail generator = new FailSlowGenerator();
-                PopulateGUI(generator, DisplayBoxSlowFail, ElapsedTimeSlowFail, NumberOfList, percentageSlow, percentageFail);
+                int slowPercentageSize = Convert.ToInt32(percentageSlow.Text);
+                int failPercentageSize = Convert.ToInt32(percentageFail.Text);
+                IGenerator generator = new FailSlowGenerator(slowPercentageSize, failPercentageSize);
+                PopulateGUI(generator, DisplayBoxSlowFail, ElapsedTimeSlowFail, NumberOfList);
             }
         }
 
@@ -140,18 +142,16 @@ namespace Create_List_WPF
 
 
         //PopulateGUI for list being generated where the percentage of times out and failures are defined by the user
-        private void PopulateGUI(IGeneratorSlowFail generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, TextBox percentageSlow, TextBox percentageFail)
+        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, TextBox percentageSlow, TextBox percentageFail)
         {
             //Start timestamp
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             //Retrieve size from the TextBox
             int size = Convert.ToInt32(NumberOfList.Text);
-            int slowPercentageSize = Convert.ToInt32(percentageSlow.Text);
-            int failPercentageSize = Convert.ToInt32(percentageFail.Text);
 
             //Display the random list
-            displayBox.ItemsSource = generator.Generate(size, slowPercentageSize, failPercentageSize);
+            displayBox.ItemsSource = generator.Generate(size);
 
             //End timestamp
             stopWatch.Stop();
