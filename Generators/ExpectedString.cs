@@ -12,7 +12,7 @@ namespace Generators
             {
                 foreach (char j in RandomUtil.SpecialChar())
                     if (item.AString.Contains(j))
-                        throw new SpecialCharacterDetected("String must contain only latin characters and numbers");
+                        throw new SpecialCharacterDetectedException("String must contain only latin characters and numbers");
             }
             catch
             {
