@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Generators
 {
-    public class Fail20Timesout10Generator : IGenerator
+    public class Normal70Fail20Slow10 : IGenerator
     {
         public IEnumerable<ItemList> Generate(int size)
         {
