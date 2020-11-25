@@ -101,7 +101,7 @@ namespace Create_List_WPF
         {
             if (generateOneByOne.IsChecked == true)
             {
-                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne, ElapsedTimeOneByOne);
 //                DisplayBoxOneByOne.Items.Refresh();
             }
         }
