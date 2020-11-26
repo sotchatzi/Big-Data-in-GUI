@@ -22,7 +22,6 @@ namespace Create_List_WPF
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         //Yield implementation
@@ -84,12 +83,35 @@ namespace Create_List_WPF
                 PopulateGUI(generator, DisplayBoxFail20Slow10, ElapsedTimeFail20Slow10, NumberOfList);
             }
         }
+
+        //yield Normal 70 fail 20% slow 10% implementation
+        private void generateNormal70Fail20Slow10_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateNormal70Fail20Slow10.IsChecked == true)
+            {
+                IGenerator generator = new Normal70Fail20Slow10();
+                PopulateGUI(generator, DisplayBoxNormal70Fail20Slow10, ElapsedTimeNormal70Fail20Slow10, NumberOfList);
+            }
+        }
+
+        //Generator which user defines slow and fail
+        private void generateSlowFail_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateSlowFail.IsChecked == true)
+            {
+                int slowPercentageSize = Convert.ToInt32(percentageSlow.Text);
+                int failPercentageSize = Convert.ToInt32(percentageFail.Text);
+                IGenerator generator = new FailSlowGenerator(slowPercentageSize, failPercentageSize);
+                PopulateGUI(generator, DisplayBoxSlowFail, ElapsedTimeSlowFail, NumberOfList);
+            }
+        }
+
         //One by one implementation
         private void generateOneByOne_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (generateOneByOne.IsChecked == true)
             {
-                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne, ElapsedTimeOneByOne);
 //                DisplayBoxOneByOne.Items.Refresh();
             }
         }
@@ -121,7 +143,29 @@ namespace Create_List_WPF
             //End timestamp
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
-            //test
+            TimeSpan ts = stopWatch.Elapsed;
+
+            double minutesToSeconds = ts.Minutes * 60;
+            //Display elapsed time
+            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
+        }
+
+
+        //PopulateGUI for list being generated where the percentage of times out and failures are defined by the user
+        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, TextBox percentageSlow, TextBox percentageFail)
+        {
+            //Start timestamp
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            //Retrieve size from the TextBox
+            int size = Convert.ToInt32(NumberOfList.Text);
+
+            //Display the random list
+            displayBox.ItemsSource = generator.Generate(size);
+
+            //End timestamp
+            stopWatch.Stop();
+            //Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
 
             double minutesToSeconds = ts.Minutes * 60;

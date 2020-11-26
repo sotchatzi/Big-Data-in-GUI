@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Create_List_WPF"
         mc:Ignorable="d"
-        Title="CreateList" Height="650" Width="950">
+        Title="CreateList" Height="650" Width="1250">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
@@ -18,9 +18,10 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="10*" />
             <RowDefinition Height="auto" /> 
             <RowDefinition Height="auto" /> 
@@ -178,9 +179,9 @@
 
 
         <!-- Generate list one by one -->
-        <TextBlock Grid.Row="0" Grid.Column="3" Text="Random list one by one" HorizontalAlignment="Center"
+        <TextBlock Grid.Row="3" Grid.Column="3" Text="Random list one by one" HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 0"/>
-        <ListBox Name="DisplayBoxOneByOne" Grid.Column="3"  Grid.Row="1" Grid.RowSpan="5" Margin="10 0 10 0"
+        <ListBox Name="DisplayBoxOneByOne" Grid.Column="3"  Grid.Row="4" Grid.RowSpan="1" Margin="10 0 10 0"
                  Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
                  >
             <ListBox.ItemTemplate>
@@ -192,8 +193,34 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <!--
-        <TextBlock Name="ElapsedTimeOneByOne" Grid.Column="3" Grid.Row="2"
+
+        <!-- Generate list with Fail20Timesout10Generator -->
+        <TextBlock Grid.Row="0" Grid.Column="3" Text="Random list via Normal 70% &#x0a;20% fail 10% time out yield" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 0"/>
+        <ListBox Name="DisplayBoxNormal70Fail20Slow10" Grid.Column="3"  Grid.Row="1" Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateNormal70Fail20Slow10, Converter={StaticResource VisibleIfTrueConverter}}"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AnIndex}" Margin="0 0 10 0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AString}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Name="ElapsedTimeNormal70Fail20Slow10" Grid.Column="3" Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateNormal70Fail20Slow10, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+        
+       
+        <TextBlock Name="ElapsedTimeOneByOne" Grid.Column="3" Grid.Row="6"
                    HorizontalAlignment="Center"
                    Margin="5 5 5 5"
                    Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
@@ -202,20 +229,51 @@
             <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
             <Run Text="s"/>
         </TextBlock>
-         -->
-            <ProgressBar Name="ProgressBarOneByOne" Grid.Column="3" Grid.Row="6" Minimum="0" Maximum="100" Value="{Binding Completion}" 
+         
+            <ProgressBar Name="ProgressBarOneByOne" Grid.Column="3" Grid.Row="5" Minimum="0" Maximum="100" Value="{Binding Completion}" 
                    Margin="5 5 5 5"
                    Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
                    >
             </ProgressBar>
 
+        <!--Generate list user define percentages-->
+        <TextBlock Grid.Row="0" Grid.Column="4" Text="Random list user defines &#x0a;failures and time outs" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 10"/>
+        <ListBox Name="DisplayBoxSlowFail" Grid.Column="4"  Grid.Row="1" Grid.RowSpan="4" Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateSlowFail, Converter={StaticResource VisibleIfTrueConverter}}"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AnIndex}" Margin="0 0 10 0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AString}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Name="ElapsedTimeSlowFail" Grid.Column="4" Grid.Row="5"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateSlowFail, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+
         <!-- Checkbox -->
-        <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="7"
+        <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="7"
                    HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <Label FontWeight="Bold">Add the number of elements</Label>
             <TextBox x:Name="NumberOfList" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
                      Text="{Binding Path=FirstName, FallbackValue=1000}"/>
+            <Label FontWeight="Bold">Add the percentage of times out (0-100)</Label>
+            <TextBox x:Name="percentageSlow" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
+                     Text="{Binding Path=FirstName, FallbackValue=0}"/>
+            <Label FontWeight="Bold">Add the percentage of failures (0-100)</Label>
+            <TextBox x:Name="percentageFail" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
+                     Text="{Binding Path=FirstName, FallbackValue=0}"/>
             <Label FontWeight="Bold">Choose Generator</Label>
             <CheckBox Name="generateYield" Checked="generateYield_CheckedChanged">Generate via yield</CheckBox>
             <CheckBox Name="generateFor" Checked="generateFor_CheckedChanged">Generate via for loop</CheckBox> 
@@ -223,6 +281,8 @@
             <CheckBox Name="generateSlow20" Checked="generateSlow20_CheckedChanged">Generate via yield slow 20%</CheckBox> 
             <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>  
             <CheckBox Name="generateFail20Slow10" Checked="generateFail20Slow10_CheckedChanged">Generate via yield fail 20% &#x0a; and slow 10%</CheckBox>  
+            <CheckBox Name="generateNormal70Fail20Slow10" Checked="generateNormal70Fail20Slow10_CheckedChanged">Generate via yield normal 70 fail 20% &#x0a; and slow 10%</CheckBox>  
+            <CheckBox Name="generateSlowFail" Checked="generateSlowFail_CheckedChanged">Generate via yield fail and slow defined by the user</CheckBox>  
 
             <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox> 
         </StackPanel>
