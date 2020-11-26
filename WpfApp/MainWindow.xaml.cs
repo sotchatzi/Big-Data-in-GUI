@@ -84,7 +84,17 @@ namespace Create_List_WPF
             }
         }
 
+        //yield Normal 70 fail 20% slow 10% implementation
+        private void generateNormal70Fail20Slow10_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateNormal70Fail20Slow10.IsChecked == true)
+            {
+                IGenerator generator = new Normal70Fail20Slow10();
+                PopulateGUI(generator, DisplayBoxNormal70Fail20Slow10, ElapsedTimeNormal70Fail20Slow10, NumberOfList);
+            }
+        }
 
+        //Generator which user defines slow and fail
         private void generateSlowFail_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (generateSlowFail.IsChecked == true)
@@ -101,7 +111,7 @@ namespace Create_List_WPF
         {
             if (generateOneByOne.IsChecked == true)
             {
-                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne, ElapsedTimeOneByOne);
 //                DisplayBoxOneByOne.Items.Refresh();
             }
         }
