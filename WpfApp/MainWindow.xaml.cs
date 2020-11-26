@@ -84,24 +84,12 @@ namespace Create_List_WPF
                 PopulateGUI(generator, DisplayBoxFail20Slow10, ElapsedTimeFail20Slow10, NumberOfList);
             }
         }
-
-        //yield fail 20% timeout 10% implementation
-        private void generateFail20Timeout10_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            if (generateFail20Timeout10.IsChecked == true)
-            {
-                IGenerator generator = new Fail20Timesout10Generator();
-                PopulateGUI(generator, DisplayBoxFail20Timeout10, ElapsedTimeFail20Timeout10, NumberOfList);
-            }
-        }
-
-
         //One by one implementation
         private void generateOneByOne_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (generateOneByOne.IsChecked == true)
             {
-                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne, ElapsedTimeOneByOne);
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);
 //                DisplayBoxOneByOne.Items.Refresh();
             }
         }
