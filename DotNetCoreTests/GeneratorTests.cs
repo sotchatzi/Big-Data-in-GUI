@@ -94,82 +94,30 @@ namespace GeneratorTests
         /// <param name="size"></param>
         /// <param name="generator"></param>
         [Test]
-        [TestCaseSource(nameof(SizeAndGenerator))]
-        [Description("Tests that the yeild return Generator works")]
-        public void TestYieldGeneratorNum(int size, IGenerator generator)
+        public void TestSlowGenerator()
         {
-            // arrange
-            // act
-            var result = generator.Generate(size).ToList(); ;
-
-            // assert
-            Assert.AreEqual(size, result.Count);
-        }
-    }
-
-    public class YieldGeneratorScaleTest
-    {
-        static IEnumerable<TestCaseData> SizeGenerator()
-
-        {
-            yield return new TestCaseData(10);
-
-            yield return new TestCaseData(1000);
-
-
-        }
-
-        [Test]
-        [TestCaseSource(nameof(SizeGenerator))]
-        [Description("Tests that the problematic yeild return Generator works")]
-        public void TestFail20Generator(int size)
-        {
-            // arrange
-            IGenerator generator = new Fail20Generator();
-            int FailElement = (int)0.2 * size;
-            int problematic_total = 0;
-            // act
-            var result = generator.Generate(size).ToList();
-            int ProblematicCount = result.Count(t => t.AString == "InvalidString");
-            // assert
-            Assert.AreEqual(FailElement, problematic_total);
-
-        }
-
-        [Test]
-        [TestCaseSource(nameof(SizeGenerator))]
-        [Description("Tests that the problematic yeild return Generator works")]
-        public void TestFail20Slow10Generator(int size)
-        {
-            // arrange
-            IGenerator generator = new Fail20Slow10Generator();
-            int FailElement = (int)(0.2 * size);
-            // act
-            var result = generator.Generate(size).ToList();
-            int ProblematicCount = result.Count(t => t.AString == "InvalidString");
-            // assert
-            Assert.AreEqual(FailElement, ProblematicCount);
-
-        }
-
-        
-        [Test]
-        [TestCaseSource(nameof(SizeGenerator))]
-        [Description("Tests that the problematic Fail20Timesout10 Generator works")]
-        public void TestFail20Timesout10Generator(int size)
-        {
-            // arrange
-            IGenerator generator = new Fail20Timesout10Generator();
-            int FailElement = (int)(0.2 * size);
-  //          int TimeoutElement = (int)(0.1 * size);
-            // act
-            var result = generator.Generate(size).ToList();
-            int ProblematicFailCount = result.Count(t => t.AString == "InvalidString");
-//            int ProblematicTimeoutCount = result.Count(t => t.AString == "Time out");
-            // assert
-            Assert.AreEqual(ProblematicFailCount, FailElement);
- //           Assert.AreEqual(ProblematicTimeoutCount, TimeoutElement);
-
-        }
+            var generator = new SlowGenerator();
+            var result_zero_loop = generator.Generate(0);
+            int total_zero_loop = 0;
+            foreach (ItemList item in result_zero_loop)
+            {
+                total_zero_loop += 1;
+            }
+            Assert.AreEqual(0, total_zero_loop);
+            var result_one_loop = generator.Generate(1);
+            int total_one_loop = 0;
+            foreach (ItemList item in result_one_loop)
+            {
+                total_one_loop += 1;
+            }
+            Assert.AreEqual(1, total_one_loop);
+            var result_n_loop = generator.Generate(10000);
+            int total_n_loop = 0;
+            foreach (ItemList item in result_n_loop)
+            {
+                total_n_loop += 1;
+            }
+            Assert.AreEqual(10000, total_n_loop);
+        } 
     }
 }
