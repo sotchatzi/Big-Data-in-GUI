@@ -8,19 +8,19 @@ namespace Generators
     {
         public IEnumerable<ItemList> Generate(int size)
         {
-            double percentSize = 0.3 * size;
-            double percentSizeFail = 0.2 * size;
+            double percentSize = 0.3 * size;//total per
+            double percentSizeFail = (2.0/3.0) * size;//fail 60
 
             ProblematicElements problematicElements = new ProblematicElements();
-            SortedSet<int> problematicSet = problematicElements.CreateSetFromPercentage(size, (int)percentSize);
-            SortedSet<int> problematicSetFail = problematicElements.CreateSetFromPercentage((int)percentSize, (int)percentSizeFail);
+            SortedSet<int> problematicSet = problematicElements.CreateSetFromPercentage(size, (int)percentSize);//total
+            SortedSet<int> problematicSetFail = problematicElements.CreateSetFromPercentage((int)percentSize, (int)percentSizeFail);//whether the problem is fail
             ItemList item;
             int j = 0;
             for (int i = 1; i <= size; i++)
             {
-                if (problematicSet.Contains(i))
+                if (problematicSet.Contains(i))//problematic
                 {
-                    if (problematicSetFail.Contains(j))
+                    if (problematicSetFail.Contains(j))//whether fail
                     {
                         item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar() };
                     }
