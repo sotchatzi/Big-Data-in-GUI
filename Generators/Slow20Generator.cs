@@ -11,13 +11,20 @@ namespace Generators
 
             ProblematicElements problematicElements= new ProblematicElements();
             SortedSet<int> problematicSet = problematicElements.CreateSetFromPercentage(size, (int)percent20Size);
+            ItemList item;
 
             for (int i = 1; i <= size; i++)
             {
                 if (problematicSet.Contains(i))
+                {
                     Thread.Sleep(1);
-
-                yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 1 };
+                }
+                else
+                {
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 0 };
+                }
+                yield return item;
             }
         }
     }

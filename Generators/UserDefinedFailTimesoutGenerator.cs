@@ -4,12 +4,20 @@ using System.Threading;
 
 namespace Generators
 {
-    public class Normal70Fail20Slow10 : IGenerator
+    public class UserDefinedFailTimesoutGenerator : IGenerator
     {
+        private int _percentageFail;
+        private int _percentageTimeout;
+
+        public UserDefinedFailTimesoutGenerator(int percentageFail, int percentageTimeout)
+        {
+            _percentageFail = percentageFail;
+            _percentageTimeout = percentageTimeout;
+        }
         public IEnumerable<ItemList> Generate(int size)
         {
-            double percentSize = 0.3 * size;
-            double percentSizeFail = 0.2 * size;
+            double percentSize = ((_percentageTimeout + _percentageFail )/ 100) * size;
+            double percentSizeFail = (_percentageFail / 100) * size;
 
             ProblematicElements problematicElements = new ProblematicElements();
             SortedSet<int> problematicSet = problematicElements.CreateSetFromPercentage(size, (int)percentSize);
@@ -26,8 +34,8 @@ namespace Generators
                     }
                     else
                     {
-                        Thread.Sleep(1);
-                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 1 };
+                        Thread.Sleep(1); // Make sure the time out process is slower than fail
+                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 3 };
                     }
                     j += 1;
                     

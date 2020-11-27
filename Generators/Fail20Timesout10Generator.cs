@@ -6,6 +6,7 @@ namespace Generators
 {
     public class Fail20Timesout10Generator : IGenerator
     {
+
         public IEnumerable<ItemList> Generate(int size)
         {
             double percentSize = 0.3 * size;
@@ -22,19 +23,19 @@ namespace Generators
                 {
                     if (problematicSetFail.Contains(j))
                     {
-                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar() };
+                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 2 };
                     }
                     else
                     {
-                        item = new ItemList() { AnIndex = i, AString = "Time out" };
-                        Thread.Sleep(2);
+                        Thread.Sleep(1); // Make sure the time out process is slower than fail
+                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 3 };
                     }
                     j += 1;
                     
                 }
                 else
                 {
-                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 0 };
                 }
 
                 ExpectedString.StringWithNoSpecialChar(item);

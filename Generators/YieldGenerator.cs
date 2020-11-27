@@ -8,7 +8,7 @@ namespace Generators
         {
             for (int i = 1; i <= size; i++)
             {
-                yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+                yield return new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 0 };
             }
         }
     }
