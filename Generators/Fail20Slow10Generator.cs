@@ -24,7 +24,7 @@ namespace Generators
                 if (problematicSetFail.Contains(i) && problematicSetSlow.Contains(i))
                 {
                     Thread.Sleep(1);
-                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 4 };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 3 };
                 }
                 else if (problematicSetFail.Contains(i))
                 {

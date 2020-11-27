@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Create_List_WPF"
         mc:Ignorable="d"
-        Title="CreateList" Height="650" Width="1250">
+        Title="CreateList" Height="650" Width="1400">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
@@ -239,7 +239,7 @@
         <!--Generate list user define percentages-->
         <TextBlock Grid.Row="0" Grid.Column="4" Text="Random list user defines &#x0a;failures and time outs" HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 10"/>
-        <ListBox Name="DisplayBoxSlowFail" Grid.Column="4"  Grid.Row="1" Grid.RowSpan="4" Margin="10 0 10 0"
+        <ListBox Name="DisplayBoxSlowFail" Grid.Column="4"  Grid.Row="1"  Margin="10 0 10 0"
                  Visibility="{Binding Path=IsChecked, ElementName=generateSlowFail, Converter={StaticResource VisibleIfTrueConverter}}"
                  >
             <ListBox.ItemTemplate>
@@ -251,10 +251,35 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Name="ElapsedTimeSlowFail" Grid.Column="4" Grid.Row="5"
+        <TextBlock Name="ElapsedTimeSlowFail" Grid.Column="4" Grid.Row="2"
                    HorizontalAlignment="Center"
                    Margin="5 5 5 5"
                    Visibility="{Binding Path=IsChecked, ElementName=generateSlowFail, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+
+        <!--Generate list user define percentages without overlap-->
+        <TextBlock Grid.Row="3" Grid.Column="4" Text="Random list user defines &#x0a;failures, slow and normal" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 10"/>
+        <ListBox Name="DisplayBoxSlowFailNoOverlap" Grid.Column="4"  Grid.Row="4"  Margin="10 0 10 0"
+                 Visibility="{Binding Path=IsChecked, ElementName=generateSlowFailNoOverlap, Converter={StaticResource VisibleIfTrueConverter}}"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AnIndex}" Margin="0 0 10 0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AString}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Name="ElapsedTimeSlowFailNoOverlap" Grid.Column="4" Grid.Row="7"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateSlowFailNoOverlap, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
             <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
@@ -268,9 +293,9 @@
             <Label FontWeight="Bold">Add the number of elements</Label>
             <TextBox x:Name="NumberOfList" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
                      Text="{Binding Path=FirstName, FallbackValue=1000}"/>
-            <Label FontWeight="Bold">Add the percentage of times out (0-100)</Label>
+            <Label FontWeight="Bold">Add the percentage of slow (0-100)</Label>
             <TextBox x:Name="percentageSlow" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
-                     Text="{Binding Path=FirstName, FallbackValue=0}"/>
+                     Text="{Binding FirstName, FallbackValue=0}"/>
             <Label FontWeight="Bold">Add the percentage of failures (0-100)</Label>
             <TextBox x:Name="percentageFail" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"
                      Text="{Binding Path=FirstName, FallbackValue=0}"/>
@@ -282,8 +307,8 @@
             <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>  
             <CheckBox Name="generateFail20Slow10" Checked="generateFail20Slow10_CheckedChanged">Generate via yield fail 20% &#x0a; and slow 10%</CheckBox>  
             <CheckBox Name="generateNormal70Fail20Slow10" Checked="generateNormal70Fail20Slow10_CheckedChanged">Generate via yield normal 70 fail 20% &#x0a; and slow 10%</CheckBox>  
-            <CheckBox Name="generateSlowFail" Checked="generateSlowFail_CheckedChanged">Generate via yield fail and slow defined by the user</CheckBox>  
-
+            <CheckBox Name="generateSlowFail" Checked="generateSlowFail_CheckedChanged">Generate via yield fail and slow defined by the user</CheckBox>
+            <CheckBox Name="generateSlowFailNoOverlap" Checked="generateSlowFailNoOverlap_CheckedChanged">Generate via yield fail, slow and normal defined by the user</CheckBox>
             <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox> 
         </StackPanel>
 

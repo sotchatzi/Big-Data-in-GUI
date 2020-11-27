@@ -126,8 +126,8 @@ namespace GeneratorTests
             int SlowElement = (int)(0.1 * size);
             // act
             var result = generator.Generate(size).ToList();
-            int ProblematicFailCount = result.Count(t => t.AFlag == 2 | t.AFlag == 4 );
-            int ProblematicSlowCount = result.Count(t => t.AFlag == 1 | t.AFlag == 4 );
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2 | t.AFlag == 3 );
+            int ProblematicSlowCount = result.Count(t => t.AFlag == 1 | t.AFlag == 3 );
             // assert
             Assert.AreEqual(FailElement, ProblematicFailCount );
             Assert.AreEqual(SlowElement, ProblematicSlowCount );
@@ -205,8 +205,27 @@ namespace GeneratorTests
             IGenerator generator = new FailSlowGenerator(FailElement, TimeoutElement );
             // act
             var result = generator.Generate(size).ToList();
-            int ProblematicFailCount = result.Count(t => t.AFlag == 2 | t.AFlag == 4);
-            int ProblematicTimeoutCount = result.Count(t => t.AFlag == 1 | t.AFlag == 4);
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2 | t.AFlag == 3);
+            int ProblematicTimeoutCount = result.Count(t => t.AFlag == 1 | t.AFlag == 3);
+            // assert
+            Assert.AreEqual(FailElement, ProblematicFailCount);
+            Assert.AreEqual(TimeoutElement, ProblematicTimeoutCount);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(UserInput))]
+        [Description("Tests that the User Defined Fail, Slow, Normal Generator works")]
+        public void TestUserDefinedFailSlowGenerator(int FailPercentage, int SlowPercentage)
+        {
+            // arrange
+            int size = 100;
+            int FailElement = (int)(FailPercentage * 0.01 * size);
+            int TimeoutElement = (int)(SlowPercentage * 0.01 * size);
+            IGenerator generator = new UserDefinedFailSlowGenerator(FailElement, TimeoutElement);
+            // act
+            var result = generator.Generate(size).ToList();
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2);
+            int ProblematicTimeoutCount = result.Count(t => t.AFlag == 1);
             // assert
             Assert.AreEqual(FailElement, ProblematicFailCount);
             Assert.AreEqual(TimeoutElement, ProblematicTimeoutCount);

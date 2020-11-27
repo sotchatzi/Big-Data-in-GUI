@@ -106,6 +106,18 @@ namespace Create_List_WPF
             }
         }
 
+        //Generator which user defines no overlap slow and fail
+        private void generateSlowFailNoOverlap_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (generateSlowFailNoOverlap.IsChecked == true)
+            {
+                int slowPercentageNoOverlapSize = Convert.ToInt32(percentageSlow.Text);
+                int failPercentageNoOverlapSize = Convert.ToInt32(percentageFail.Text);
+                IGenerator generator = new UserDefinedFailSlowGenerator(failPercentageNoOverlapSize, slowPercentageNoOverlapSize);
+                PopulateGUI(generator, DisplayBoxSlowFailNoOverlap, ElapsedTimeSlowFailNoOverlap, NumberOfList);
+            }
+        }
+
         //One by one implementation
         private void generateOneByOne_CheckedChanged(object sender, RoutedEventArgs e)
         {

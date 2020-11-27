@@ -4,26 +4,27 @@ using System.Threading;
 
 namespace Generators
 {
-    public class UserDefinedFailTimesoutGenerator : IGenerator
+    public class UserDefinedFailSlowGenerator : IGenerator
     {
         private int _percentageFail;
         private int _percentageTimeout;
 
-        public UserDefinedFailTimesoutGenerator(int percentageFail, int percentageTimeout)
+        public UserDefinedFailSlowGenerator(int percentageFail, int percentageTimeout)
         {
             _percentageFail = percentageFail;
             _percentageTimeout = percentageTimeout;
         }
         public IEnumerable<ItemList> Generate(int size)
         {
-            double percentSize = ((_percentageTimeout + _percentageFail )/ 100) * size;
-            double percentSizeFail = (_percentageFail / 100) * size;
+            int total_percentage = _percentageTimeout + _percentageFail;
+            double percentSize = total_percentage * 0.01 * size;
+            double percentSizeFail = _percentageFail * 0.01 * size;
 
             ProblematicElements problematicElements = new ProblematicElements();
             SortedSet<int> problematicSet = problematicElements.CreateSetFromPercentage(size, (int)percentSize);
             SortedSet<int> problematicSetFail = problematicElements.CreateSetFromPercentage((int)percentSize, (int)percentSizeFail);
             ItemList item;
-            int j = 0;
+            int j = 1;
             for (int i = 1; i <= size; i++)
             {
                 if (problematicSet.Contains(i))
@@ -34,11 +35,11 @@ namespace Generators
                     }
                     else
                     {
-                        Thread.Sleep(1); // Make sure the time out process is slower than fail
-                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 3 };
+                        Thread.Sleep(1);
+                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 1 };
                     }
                     j += 1;
-                    
+
                 }
                 else
                 {

@@ -8,10 +8,10 @@ namespace Generators
         private int _failPercentage;
         private int _slowPercentage;
 
-        public FailSlowGenerator(int slowPercentage, int failPercentage)
+        public FailSlowGenerator(int failPercentage, int slowPercentage )
         {
-            _failPercentage = slowPercentage;
-            _slowPercentage = failPercentage;
+            _failPercentage = failPercentage;
+            _slowPercentage = slowPercentage;
         }
 
         public IEnumerable<ItemList> Generate(int size)
@@ -30,7 +30,7 @@ namespace Generators
                 if (problematicSetFail.Contains(i) && problematicSetSlow.Contains(i))
                 {
                     Thread.Sleep(1);
-                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 4 };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 3 };
                 }
                 else if (problematicSetFail.Contains(i))
                 {
