@@ -17,11 +17,11 @@ namespace Generators
             {
                 if (problematicSet.Contains(i))
                 {
-                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar() };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 2 };
                 }
                 else
                 {
-                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 0 };
                 }
 
                 ExpectedString.StringWithNoSpecialChar(item);

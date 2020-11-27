@@ -15,26 +15,26 @@ namespace Generators
             SortedSet<int> problematicSet = problematicElements.CreateSetFromPercentage(size, (int)percentSize);
             SortedSet<int> problematicSetFail = problematicElements.CreateSetFromPercentage((int)percentSize, (int)percentSizeFail);
             ItemList item;
-            int j = 0;
+            int j = 1;
             for (int i = 1; i <= size; i++)
             {
                 if (problematicSet.Contains(i))
                 {
                     if (problematicSetFail.Contains(j))
                     {
-                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar() };
+                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomStringSpecialChar(), AFlag = 2 };
                     }
                     else
                     {
-                        item = new ItemList() { AnIndex = i, AString = "Time out" };
-                        Thread.Sleep(2);
+                        Thread.Sleep(1);
+                        item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 1 };
                     }
                     j += 1;
-                    
+
                 }
                 else
                 {
-                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString() };
+                    item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 0 };
                 }
 
                 ExpectedString.StringWithNoSpecialChar(item);

@@ -16,7 +16,8 @@ namespace Generators
             }
             catch
             {
-                item.AString = "InvalidString";
+                //item.AString = "InvalidString";
+                item.AString = "FailedToOutput";//Failed elements and Time out elements would return the same string
             }
         }
 

@@ -108,13 +108,12 @@ namespace GeneratorTests
         {
             // arrange
             IGenerator generator = new Fail20Generator();
-            int FailElement = (int)0.2 * size;
-            int problematic_total = 0;
+            int FailElement = (int)(0.2 * size);
             // act
             var result = generator.Generate(size).ToList();
-            int ProblematicCount = result.Count(t => t.AString == "InvalidString");
+            int ProblematicCount = result.Count(t => t.AFlag == 2);
             // assert
-            Assert.AreEqual(FailElement, problematic_total);
+            Assert.AreEqual(FailElement, ProblematicCount);
         }
         [Test]
         [TestCaseSource(nameof(SizeGenerator))]
@@ -124,11 +123,31 @@ namespace GeneratorTests
             // arrange
             IGenerator generator = new Fail20Slow10Generator();
             int FailElement = (int)(0.2 * size);
+            int SlowElement = (int)(0.1 * size);
             // act
             var result = generator.Generate(size).ToList();
-            int ProblematicCount = result.Count(t => t.AString == "InvalidString");
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2 | t.AFlag == 3 );
+            int ProblematicSlowCount = result.Count(t => t.AFlag == 1 | t.AFlag == 3 );
             // assert
-            Assert.AreEqual(FailElement, ProblematicCount);
+            Assert.AreEqual(FailElement, ProblematicFailCount );
+            Assert.AreEqual(SlowElement, ProblematicSlowCount );
+        }
+        [Test]
+        [TestCaseSource(nameof(SizeGenerator))]
+        [Description("Tests that the problematic yeild return Generator works")]
+        public void TestNormal70Fail20Slow10(int size)
+        {
+            // arrange
+            IGenerator generator = new Normal70Fail20Slow10();
+            int FailElement = (int)(0.2 * size);
+            int SlowElement = (int)(0.1 * size);
+            // act
+            var result = generator.Generate(size).ToList();
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2);
+            int ProblematicSlowCount = result.Count(t => t.AFlag == 1);
+            // assert
+            Assert.AreEqual(FailElement, ProblematicFailCount);
+            Assert.AreEqual(SlowElement, ProblematicSlowCount);
         }
         [Test]
         [TestCaseSource(nameof(SizeGenerator))]
@@ -141,11 +160,75 @@ namespace GeneratorTests
             int TimeoutElement = (int)(0.1 * size);
             // act
             var result = generator.Generate(size).ToList();
-            int ProblematicFailCount = result.Count(t => t.AString == "InvalidString");
-            int ProblematicTimeoutCount = result.Count(t => t.AString == "Time out");
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2);
+            int ProblematicTimeoutCount = result.Count(t => t.AFlag == 3);
             // assert
-            Assert.AreEqual(ProblematicFailCount, FailElement);
-            Assert.AreEqual(ProblematicTimeoutCount, TimeoutElement);
+            Assert.AreEqual(FailElement, ProblematicFailCount );
+            Assert.AreEqual(TimeoutElement, ProblematicTimeoutCount );
         }
     }
-}
+
+    public class UserDefinedGeneratorScaleTest
+    {
+
+        static IEnumerable<TestCaseData> UserInput()
+        {
+            foreach (var FailPercentage in FailPercentages())
+            {
+                foreach (var SlowPercentage in SlowPercentages())
+                {
+                    yield return new TestCaseData(FailPercentage, SlowPercentage);
+                }
+            }
+        }
+        static IEnumerable<int> FailPercentages()
+        {
+            yield return 10;
+            yield return 30;
+        }
+
+        static IEnumerable<int> SlowPercentages()
+        {
+            yield return 10;
+            yield return 30;
+        }
+
+        [Test]
+        [TestCaseSource(nameof(UserInput))]
+        [Description("Tests that the User Defined FailSlow Generator works")]
+        public void TestFailSlowGenerator(int FailPercentage, int SlowPercentage)
+        {
+            // arrange
+            int size = 100;
+            int FailElement = (int)(FailPercentage * 0.01 * size);
+            int TimeoutElement = (int)(SlowPercentage * 0.01 * size);
+            IGenerator generator = new FailSlowGenerator(FailElement, TimeoutElement );
+            // act
+            var result = generator.Generate(size).ToList();
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2 | t.AFlag == 3);
+            int ProblematicTimeoutCount = result.Count(t => t.AFlag == 1 | t.AFlag == 3);
+            // assert
+            Assert.AreEqual(FailElement, ProblematicFailCount);
+            Assert.AreEqual(TimeoutElement, ProblematicTimeoutCount);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(UserInput))]
+        [Description("Tests that the User Defined Fail, Slow, Normal Generator works")]
+        public void TestUserDefinedFailSlowGenerator(int FailPercentage, int SlowPercentage)
+        {
+            // arrange
+            int size = 100;
+            int FailElement = (int)(FailPercentage * 0.01 * size);
+            int TimeoutElement = (int)(SlowPercentage * 0.01 * size);
+            IGenerator generator = new UserDefinedFailSlowGenerator(FailElement, TimeoutElement);
+            // act
+            var result = generator.Generate(size).ToList();
+            int ProblematicFailCount = result.Count(t => t.AFlag == 2);
+            int ProblematicTimeoutCount = result.Count(t => t.AFlag == 1);
+            // assert
+            Assert.AreEqual(FailElement, ProblematicFailCount);
+            Assert.AreEqual(TimeoutElement, ProblematicTimeoutCount);
+        }
+    }
+    }
