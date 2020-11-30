@@ -27,9 +27,9 @@ namespace PerformanceTests
             yield return 100;
             yield return 1000;
             yield return 10000;
-            //yield return 100000;
-            //yield return 1000000;
-            //yield return 10000000;
+            yield return 100000;
+            yield return 1000000;
+            yield return 10000000;
         }
         static IEnumerable<IGenerator> Generators()
         {
@@ -37,9 +37,11 @@ namespace PerformanceTests
             yield return new YieldGenerator();
             yield return new SlowGenerator();
             yield return new Slow20Generator();
-            yield return new Fail20Generator();
-            yield return new Fail20Slow10Generator();
-            yield return new Normal70Fail20Slow10();
+            //PROBLEM WITH FAIL GENERATORS BECAUSE INCLUDES EXCEPTIONS
+
+            //yield return new Fail20Generator();
+            //yield return new Fail20Slow10Generator();
+            //yield return new Normal70Fail20Slow10();
             //MUST BE ADDED LATER
             //yield return new FailSlowGenerator
             //yield return new UserDefinedFailSlowGenerator
