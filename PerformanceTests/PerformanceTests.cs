@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace PerformanceTests
@@ -24,8 +25,8 @@ namespace PerformanceTests
             yield return 1;
             yield return 10;
             yield return 100;
-            //yield return 1000;
-            //yield return 10000;
+            yield return 1000;
+            yield return 10000;
             //yield return 100000;
             //yield return 1000000;
             //yield return 10000000;
@@ -59,7 +60,22 @@ namespace PerformanceTests
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             // 5. report
-            Console.Out.WriteLine(ts.ToString()); // Instead, write to a file
+            // Milliseconds to seconds
+            double totalMilliseconds = ts.TotalMilliseconds * 0.001;
+
+            //Report the generator size and time
+            string report = generator.Generate(size).ToString() + " " + size.ToString() + " , "  + totalMilliseconds.ToString() + " " + ts.ToString();
+
+
+            // figure out the current directory that will be saved the file reportTime 
+            //var curDir = Directory.GetCurrentDirectory();
+            //Console.Out.WriteLine(curDir);
+
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"reportTime.txt", true))
+            {
+                file.WriteLine(report);
+            }
         }
     }
 }
