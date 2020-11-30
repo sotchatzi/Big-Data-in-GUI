@@ -24,8 +24,8 @@ namespace PerformanceTests
             yield return 1;
             yield return 10;
             yield return 100;
-            yield return 1000;
-            yield return 10000;
+            //yield return 1000;
+            //yield return 10000;
             //yield return 100000;
             //yield return 1000000;
             //yield return 10000000;
@@ -35,6 +35,13 @@ namespace PerformanceTests
             yield return new ForLoopGenerator();
             yield return new YieldGenerator();
             yield return new SlowGenerator();
+            yield return new Slow20Generator();
+            yield return new Fail20Generator();
+            yield return new Fail20Slow10Generator();
+            yield return new Normal70Fail20Slow10();
+            //MUST BE ADDED LATER
+            //yield return new FailSlowGenerator
+            //yield return new UserDefinedFailSlowGenerator
         }
         [TestCaseSource(nameof(SizeAndGenerator))]
         public void PerformanceMeasurement(int size, IGenerator generator)
