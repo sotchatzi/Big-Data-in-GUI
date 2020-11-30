@@ -287,7 +287,8 @@
         </TextBlock>
 
         <!-- Checkbox -->
-        <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="7"
+
+        <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4"
                    HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <Label FontWeight="Bold">Add the number of elements</Label>
@@ -309,9 +310,37 @@
             <CheckBox Name="generateNormal70Fail20Slow10" Checked="generateNormal70Fail20Slow10_CheckedChanged">Generate via yield normal 70 fail 20% &#x0a; and slow 10%</CheckBox>  
             <CheckBox Name="generateSlowFail" Checked="generateSlowFail_CheckedChanged">Generate via yield fail and slow defined by the user</CheckBox>
             <CheckBox Name="generateSlowFailNoOverlap" Checked="generateSlowFailNoOverlap_CheckedChanged">Generate via yield fail, slow and normal defined by the user</CheckBox>
-            <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox> 
+            <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox>
         </StackPanel>
-
-
+        <StackPanel Grid.Column="5" Grid.Row="3" Grid.RowSpan="5"
+                   HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button x:Name="ClearMatrix" Content="Cleer the Matrix." Click="ClearButton_Click"/>
+            <TextBlock Name="getFail" Grid.Column="5" Grid.Row="4"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5">
+            <Run Text="The number of failed record: "/>
+            <Run Text="{Binding number}"/></TextBlock>
+            <TextBlock Name="TimeDelayEstimate" Grid.Column="5" Grid.Row="4"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5">
+            <Run Text="The total time delay: "/>
+            <Run Text="{Binding number}"/>
+            <Run Text="ms"/>
+            </TextBlock>
+            <TextBlock Name="NormalEstimate" Grid.Column="5" Grid.Row="4"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5">
+            <Run Text="The number of normal records: "/>
+            <Run Text="{Binding number}"/>
+            </TextBlock>
+            <!--TextBlock Name="OperateTimeEstimate" Grid.Column="5" Grid.Row="4"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5">
+            <Run Text="The waiting time before interactive: "/>
+            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="s"/>
+            </TextBlock-->
+        </StackPanel>
     </Grid>
 </Window>
