@@ -7,4 +7,9 @@
         public double milliseconds { get; set; }
 
     }
+
+    public class MatrixText
+    {
+        public int number { get; set; }
+    }
 }

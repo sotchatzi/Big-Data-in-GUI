@@ -30,7 +30,7 @@ namespace Create_List_WPF
             if (generateYield.IsChecked == true)
             {
                 IGenerator generator = new YieldGenerator();
-                PopulateGUI(generator, DisplayBoxYield, ElapsedTimeYield, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxYield, ElapsedTimeYield, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Create_List_WPF
             if (generateFor.IsChecked == true)
             {
                 IGenerator generator = new ForLoopGenerator();
-                PopulateGUI(generator, DisplayBoxFor, ElapsedTimeFor, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxFor, ElapsedTimeFor, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Create_List_WPF
             if (generateSlow1.IsChecked == true)
             {
                 IGenerator generator = new SlowGenerator();
-                PopulateGUI(generator, DisplayBoxSlow1, ElapsedTimeSlow1, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxSlow1, ElapsedTimeSlow1, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Create_List_WPF
             if (generateSlow20.IsChecked == true)
             {
                 IGenerator generator = new Slow20Generator();
-                PopulateGUI(generator, DisplayBoxSlow20, ElapsedTimeSlow20, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxSlow20, ElapsedTimeSlow20, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Create_List_WPF
             if (generateFail20.IsChecked == true)
             {
                 IGenerator generator = new Fail20Generator();
-                PopulateGUI(generator, DisplayBoxFail20, ElapsedTimeFail20, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxFail20, ElapsedTimeFail20, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Create_List_WPF
             if (generateFail20Slow10.IsChecked == true)
             {
                 IGenerator generator = new Fail20Slow10Generator();
-                PopulateGUI(generator, DisplayBoxFail20Slow10, ElapsedTimeFail20Slow10, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxFail20Slow10, ElapsedTimeFail20Slow10, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Create_List_WPF
             if (generateNormal70Fail20Slow10.IsChecked == true)
             {
                 IGenerator generator = new Normal70Fail20Slow10();
-                PopulateGUI(generator, DisplayBoxNormal70Fail20Slow10, ElapsedTimeNormal70Fail20Slow10, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxNormal70Fail20Slow10, ElapsedTimeNormal70Fail20Slow10, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -102,7 +102,7 @@ namespace Create_List_WPF
                 int slowPercentageSize = Convert.ToInt32(percentageSlow.Text);
                 int failPercentageSize = Convert.ToInt32(percentageFail.Text);
                 IGenerator generator = new FailSlowGenerator(failPercentageSize, slowPercentageSize);
-                PopulateGUI(generator, DisplayBoxSlowFail, ElapsedTimeSlowFail, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxSlowFail, ElapsedTimeSlowFail, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -114,7 +114,7 @@ namespace Create_List_WPF
                 int slowPercentageNoOverlapSize = Convert.ToInt32(percentageSlow.Text);
                 int failPercentageNoOverlapSize = Convert.ToInt32(percentageFail.Text);
                 IGenerator generator = new UserDefinedFailSlowGenerator(failPercentageNoOverlapSize, slowPercentageNoOverlapSize);
-                PopulateGUI(generator, DisplayBoxSlowFailNoOverlap, ElapsedTimeSlowFailNoOverlap, NumberOfList);
+                PopulateGUIcul(generator, DisplayBoxSlowFailNoOverlap, ElapsedTimeSlowFailNoOverlap, NumberOfList, getFail, TimeDelayEstimate, NormalEstimate);
             }
         }
 
@@ -133,7 +133,16 @@ namespace Create_List_WPF
             if (generateOneByOne.IsChecked == false)
             {
                 DisplayBoxOneByOne.Items.Clear();
+                NormalEstimate.DataContext = new MatrixText() { number = 0 };
             }
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            getFail.DataContext = new MatrixText() { number = 0 };
+            TimeDelayEstimate.DataContext = new MatrixText() { number = 0 };
+            NormalEstimate.DataContext = new MatrixText() { number = 0 };
+            //OperateTimeEstimate.DataContext = new MatrixText() { number = 0 };
         }
 
         //Validate that the textbox accepts only numbers
@@ -164,8 +173,8 @@ namespace Create_List_WPF
 
 
         //PopulateGUI for list being generated where the percentage of times out and failures are defined by the user
-        private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, TextBox percentageSlow, TextBox percentageFail)
-        {
+        private void PopulateGUIcul(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList, TextBlock getFail, TextBlock getSlow, TextBlock getNormal)
+        {   //TextBox percentageSlow, TextBox percentageFail
             //Start timestamp
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -179,7 +188,35 @@ namespace Create_List_WPF
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
-
+            getFail.DataContext = new MatrixText() { number = 0 };
+            getSlow.DataContext = new MatrixText() { number = 0 };
+            getNormal.DataContext = new MatrixText() { number = 0 };
+            int FFlag = 0, SFlag = 0, NFlag =0 ;
+            foreach(ItemList itemFlag in displayBox.Items)
+            {
+                if(itemFlag.AFlag == 0)
+                {
+                    NFlag += 1;
+                    getNormal.DataContext = new MatrixText() { number = NFlag };
+                }
+                else if (itemFlag.AFlag == 3)
+                {
+                    FFlag += 1;
+                    SFlag += 1;
+                    getFail.DataContext = new MatrixText() { number = FFlag };
+                    getSlow.DataContext = new MatrixText() { number = SFlag };
+                }
+                else if(itemFlag.AFlag == 2)
+                {
+                    FFlag += 1;
+                    getFail.DataContext = new MatrixText() { number = FFlag };
+                }
+                else
+                {
+                    SFlag += 1;
+                    getSlow.DataContext = new MatrixText() { number = SFlag };
+                }
+            }
             double minutesToSeconds = ts.Minutes * 60;
             //Display elapsed time
             elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
