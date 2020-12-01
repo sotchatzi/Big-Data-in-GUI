@@ -28,8 +28,8 @@ namespace PerformanceTests
             yield return 1000;
             yield return 10000;
             yield return 100000;
-            yield return 1000000;
-            yield return 10000000;
+            //yield return 1000000;
+            //yield return 10000000;
         }
         static IEnumerable<IGenerator> Generators()
         {
