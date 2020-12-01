@@ -28,7 +28,8 @@ namespace PerformanceTests
             yield return 1000;
             yield return 10000;
             yield return 100000;
-            yield return 1000000;
+            //PROBLEM ON PIPELINE WORKFLOW DOES NOT COMPLETE THE TASKS BELOW
+            //yield return 1000000;
             //yield return 10000000;
         }
         static IEnumerable<IGenerator> Generators()
@@ -73,11 +74,10 @@ namespace PerformanceTests
             //var curDir = Directory.GetCurrentDirectory();
             //Console.Out.WriteLine(curDir);
 
-            //PROBLEM GITHUB PIPELINE
-            //using (System.IO.StreamWriter file =
-            //new System.IO.StreamWriter(@"reportTime.txt", true))
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"reportTime.txt", true))
             {
-              //  file.WriteLine(report);
+                file.WriteLine(report);
             }
         }
     }
