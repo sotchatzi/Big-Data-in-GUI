@@ -50,7 +50,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateYield, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
         <!-- Generate list with for -->
@@ -74,7 +74,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateFor, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
         <!-- Generate list with SlowGenerator -->
@@ -98,7 +98,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateSlow1, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
 
@@ -123,7 +123,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateSlow20, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
 
@@ -148,7 +148,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateFail20, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
 
@@ -173,7 +173,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateFail20Slow10, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
 
@@ -193,6 +193,24 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <!--
+        <TextBlock Name="ElapsedTimeOneByOne" Grid.Column="3" Grid.Row="6"
+                   HorizontalAlignment="Center"
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
+         >
+            <Run Text="The execution time is: "/>
+            <Run Text="{Binding seconds}"/>
+            <Run Text="s"/>
+        </TextBlock>
+        -->
+         
+            <ProgressBar Name="ProgressBarOneByOne" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2" Minimum="0" Maximum="100" Value="{Binding Completion}" 
+                   Margin="5 5 5 5"
+                   Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
+                   >
+            </ProgressBar>
+
 
         <!-- Generate list with Fail20Timesout10Generator -->
         <TextBlock Grid.Row="0" Grid.Column="3" Text="Random list via Normal 70% &#x0a;20% fail 10% time out yield" HorizontalAlignment="Center"
@@ -215,27 +233,11 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateNormal70Fail20Slow10, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
         
        
-        <TextBlock Name="ElapsedTimeOneByOne" Grid.Column="3" Grid.Row="6"
-                   HorizontalAlignment="Center"
-                   Margin="5 5 5 5"
-                   Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
-         >
-            <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
-            <Run Text="s"/>
-        </TextBlock>
-         
-            <ProgressBar Name="ProgressBarOneByOne" Grid.Column="3" Grid.Row="5" Minimum="0" Maximum="100" Value="{Binding Completion}" 
-                   Margin="5 5 5 5"
-                   Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
-                   >
-            </ProgressBar>
-
         <!--Generate list user define percentages-->
         <TextBlock Grid.Row="0" Grid.Column="4" Text="Random list user defines &#x0a;failures and time outs" HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 10"/>
@@ -257,7 +259,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateSlowFail, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
 
@@ -282,7 +284,7 @@
                    Visibility="{Binding Path=IsChecked, ElementName=generateSlowFailNoOverlap, Converter={StaticResource VisibleIfTrueConverter}}"
          >
             <Run Text="The execution time is: "/>
-            <Run Text="{Binding seconds}"/><Run Text="."/><Run Text="{Binding milliseconds}"/>
+            <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
 

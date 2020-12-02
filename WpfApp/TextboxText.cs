@@ -4,7 +4,6 @@
     public class TextboxText
     {
         public double seconds { get; set; }
-        public double milliseconds { get; set; }
 
     }
 

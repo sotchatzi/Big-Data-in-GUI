@@ -74,11 +74,13 @@ namespace PerformanceTests
             //var curDir = Directory.GetCurrentDirectory();
             //Console.Out.WriteLine(curDir);
 
+            
             using (System.IO.StreamWriter file =
             new System.IO.StreamWriter(@"reportTime.txt", true))
             {
                 file.WriteLine(report);
             }
+            
         }
     }
 }
