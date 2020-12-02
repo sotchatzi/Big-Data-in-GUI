@@ -12,7 +12,7 @@ namespace Create_List_WPF
 {
     class PopulateGUIOneByOne
     {
-        public void PopulateGUI(TextBox NumberOfList, ListBox listBox, ProgressBar progressBar, TextBlock elapsedTime)
+        public void PopulateGUI(TextBox NumberOfList, ListBox listBox, ProgressBar progressBar)//, TextBlock elapsedTime)
         {
             int size = Convert.ToInt32(NumberOfList.Text);
             Stopwatch stopWatch = new Stopwatch();
@@ -27,9 +27,9 @@ namespace Create_List_WPF
             //};
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
+            double totalMilliseconds = ts.TotalMilliseconds * 0.001;
 
-            double minutesToSeconds = ts.Minutes * 60;
-            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
+//            elapsedTime.DataContext = new TextboxText() { seconds = totalMilliseconds };
         }
 
         private void Generate(List<int> values, int size, ListBox listBox, ProgressBar progressBar)

@@ -123,7 +123,7 @@ namespace Create_List_WPF
         {
             if (generateOneByOne.IsChecked == true)
             {
-                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne, ElapsedTimeOneByOne);
+                new PopulateGUIOneByOne().PopulateGUI(NumberOfList, DisplayBoxOneByOne, ProgressBarOneByOne);//, ElapsedTimeOneByOne);
 //                DisplayBoxOneByOne.Items.Refresh();
             }
         }
@@ -151,6 +151,8 @@ namespace Create_List_WPF
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        /*
         //Populate the list in GUI and take the time back
         private void PopulateGUI(IGenerator generator, ListBox displayBox, TextBlock elapsedTime, TextBox NumberOfList )
         {
@@ -166,10 +168,15 @@ namespace Create_List_WPF
             //Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
 
-            double minutesToSeconds = ts.Minutes * 60;
+            double totalMilliseconds = ts.TotalMilliseconds * 0.001;
+
+            //double minutesToSeconds = ts.Minutes * 60;
             //Display elapsed time
-            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
+            //Display Seconds
+            elapsedTime.DataContext = totalMilliseconds;
+            //elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
         }
+        */
 
 
         //PopulateGUI for list being generated where the percentage of times out and failures are defined by the user
@@ -188,6 +195,14 @@ namespace Create_List_WPF
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
+
+            //Take milliseconds and transform it to seconds
+            double totalMilliseconds = ts.TotalMilliseconds * 0.001;
+            //Display elapsed time
+            elapsedTime.DataContext = new TextboxText() { seconds = Math.Round(totalMilliseconds, 4) };
+
+
+
             getFail.DataContext = new MatrixText() { number = 0 };
             getSlow.DataContext = new MatrixText() { number = 0 };
             getNormal.DataContext = new MatrixText() { number = 0 };
@@ -217,9 +232,7 @@ namespace Create_List_WPF
                     getSlow.DataContext = new MatrixText() { number = SFlag };
                 }
             }
-            double minutesToSeconds = ts.Minutes * 60;
-            //Display elapsed time
-            elapsedTime.DataContext = new TextboxText() { seconds = ts.Seconds + minutesToSeconds, milliseconds = ts.Milliseconds };
+
         }
     }
 }
