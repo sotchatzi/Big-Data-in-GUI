@@ -194,7 +194,7 @@ namespace Create_List_WPF
             //End timestamp
             stopWatch.Stop();
             //Get the elapsed time as a TimeSpan value.
-            TimeSpan ts = stopWatch.Elapsed;
+           TimeSpan ts = stopWatch.Elapsed;
 
             //Take milliseconds and transform it to seconds
             double totalMilliseconds = ts.TotalMilliseconds * 0.001;
@@ -203,6 +203,7 @@ namespace Create_List_WPF
 
 
 
+            /*
             getFail.DataContext = new MatrixText() { number = 0 };
             getSlow.DataContext = new MatrixText() { number = 0 };
             getNormal.DataContext = new MatrixText() { number = 0 };
@@ -232,6 +233,7 @@ namespace Create_List_WPF
                     getSlow.DataContext = new MatrixText() { number = SFlag };
                 }
             }
+            */
 
         }
     }
