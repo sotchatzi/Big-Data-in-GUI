@@ -23,11 +23,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="10*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" /> 
+            <RowDefinition Height="auto" /> 
             <RowDefinition Height="10*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" /> 
+            <RowDefinition Height="*" /> 
         </Grid.RowDefinitions>
         <!-- Generate list with yield -->
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Random list via yield" HorizontalAlignment="Center"
@@ -204,12 +204,12 @@
             <Run Text="s"/>
         </TextBlock>
         -->
-
-        <ProgressBar Name="ProgressBarOneByOne" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2" Minimum="0" Maximum="100" Value="{Binding Completion}" 
+         
+            <ProgressBar Name="ProgressBarOneByOne" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2" Minimum="0" Maximum="100" Value="{Binding Completion}" 
                    Margin="5 5 5 5"
                    Visibility="{Binding Path=IsChecked, ElementName=generateOneByOne, Converter={StaticResource VisibleIfTrueConverter}}"
                    >
-        </ProgressBar>
+            </ProgressBar>
 
 
         <!-- Generate list with Fail20Timesout10Generator -->
@@ -236,8 +236,8 @@
             <Run Text="{Binding seconds}"/>
             <Run Text="s"/>
         </TextBlock>
-
-
+        
+       
         <!--Generate list user define percentages-->
         <TextBlock Grid.Row="0" Grid.Column="4" Text="Random list user defines &#x0a;failures and time outs" HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontWeight="Bold" Margin="10 0 10 10"/>
@@ -304,12 +304,12 @@
                      Text="{Binding Path=FirstName, FallbackValue=0}"/>
             <Label FontWeight="Bold">Choose Generator</Label>
             <CheckBox Name="generateYield" Checked="generateYield_CheckedChanged">Generate via yield</CheckBox>
-            <CheckBox Name="generateFor" Checked="generateFor_CheckedChanged">Generate via for loop</CheckBox>
-            <CheckBox Name="generateSlow1" Checked="generateSlow1_CheckedChanged">Generate via yield slow</CheckBox>
-            <CheckBox Name="generateSlow20" Checked="generateSlow20_CheckedChanged">Generate via yield slow 20%</CheckBox>
-            <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>
-            <CheckBox Name="generateFail20Slow10" Checked="generateFail20Slow10_CheckedChanged">Generate via yield fail 20% &#x0a; and slow 10%</CheckBox>
-            <CheckBox Name="generateNormal70Fail20Slow10" Checked="generateNormal70Fail20Slow10_CheckedChanged">Generate via yield normal 70 fail 20% &#x0a; and slow 10%</CheckBox>
+            <CheckBox Name="generateFor" Checked="generateFor_CheckedChanged">Generate via for loop</CheckBox> 
+            <CheckBox Name="generateSlow1" Checked="generateSlow1_CheckedChanged">Generate via yield slow</CheckBox> 
+            <CheckBox Name="generateSlow20" Checked="generateSlow20_CheckedChanged">Generate via yield slow 20%</CheckBox> 
+            <CheckBox Name="generateFail20" Checked="generateFail20_CheckedChanged">Generate via yield fail 20%</CheckBox>  
+            <CheckBox Name="generateFail20Slow10" Checked="generateFail20Slow10_CheckedChanged">Generate via yield fail 20% &#x0a; and slow 10%</CheckBox>  
+            <CheckBox Name="generateNormal70Fail20Slow10" Checked="generateNormal70Fail20Slow10_CheckedChanged">Generate via yield normal 70 fail 20% &#x0a; and slow 10%</CheckBox>  
             <CheckBox Name="generateSlowFail" Checked="generateSlowFail_CheckedChanged">Generate via yield fail and slow defined by the user</CheckBox>
             <CheckBox Name="generateSlowFailNoOverlap" Checked="generateSlowFailNoOverlap_CheckedChanged">Generate via yield fail, slow and normal defined by the user</CheckBox>
             <CheckBox Name="generateOneByOne" Checked="generateOneByOne_CheckedChanged" Unchecked="generateOneByOne_UnCheckedChanged">Generate one by one</CheckBox>
@@ -344,15 +344,5 @@
             <Run Text="s"/>
             </TextBlock-->
         </StackPanel>
-        <Button x:Name="LoadMatrix" Grid.Column="5" Grid.Row="6"  Content="Load the performance." Click="Performance_Click"/>
-        <RichTextBox Name="richTextBox1" Grid.Column="5" 
-                   HorizontalAlignment="Center"
-                    VerticalAlignment="Top" Width="300" RenderTransformOrigin="0,30" Margin="0,180,0,0" Grid.Row="4">
-            <FlowDocument>
-                <Paragraph>
-                    <Run>The performance test report.</Run>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
     </Grid>
 </Window>
