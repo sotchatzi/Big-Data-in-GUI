@@ -344,5 +344,15 @@
             <Run Text="s"/>
             </TextBlock-->
         </StackPanel>
+        <Button x:Name="LoadMatrix" Grid.Column="5" Grid.Row="6"  Content="Load the performance." Click="Performance_Click"/>
+        <RichTextBox Name="richTextBox1" Grid.Column="5" 
+                   HorizontalAlignment="Center"
+                    VerticalAlignment="Top" Width="300" RenderTransformOrigin="0,30" Margin="0,180,0,0" Grid.Row="4">
+            <FlowDocument>
+                <Paragraph>
+                    <Run>The performance test report.</Run>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
     </Grid>
 </Window>

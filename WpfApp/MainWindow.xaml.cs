@@ -9,7 +9,8 @@ using Generators;
 using System.Diagnostics;
 //number validation
 using System.Text.RegularExpressions;
-
+using System.IO;
+using System.Windows.Documents;
 
 namespace Create_List_WPF
 {
@@ -150,6 +151,23 @@ namespace Create_List_WPF
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void Performance_Click(object sender, RoutedEventArgs e)
+        {
+
+            string textFile = @"C:\Users\DELL\source\repos\sotchatzi\Big-Data-in-GUI\PerformanceTests\bin\Debug\netcoreapp3.1\reportTime.txt";
+            FileStream fs;
+            if (File.Exists(textFile))
+            {
+                fs = new FileStream(textFile, FileMode.Open, FileAccess.Read);
+                using (fs)
+                {
+                    TextRange text = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
+                    text.Load(fs, DataFormats.Text);
+                }
+
+            }
         }
 
         /*
