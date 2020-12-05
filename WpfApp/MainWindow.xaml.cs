@@ -155,10 +155,14 @@ namespace Create_List_WPF
 
         private void Performance_Click(object sender, RoutedEventArgs e)
         {
-
+            string curDir = Directory.GetCurrentDirectory();
+            string[] strArray = curDir.Split(@"WpfApp");
+            string arr = strArray[0];
+            string DirReport = arr + @"PerformanceTests\bin\Debug\netcoreapp3.1\reportTime.txt";
+            //Console.WriteLine(DirReport);
             string textFile = @"C:\Users\DELL\source\repos\sotchatzi\Big-Data-in-GUI\PerformanceTests\bin\Debug\netcoreapp3.1\reportTime.txt";
             FileStream fs;
-            if (File.Exists(textFile))
+            if (File.Exists(DirReport))
             {
                 fs = new FileStream(textFile, FileMode.Open, FileAccess.Read);
                 using (fs)
