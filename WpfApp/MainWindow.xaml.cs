@@ -161,16 +161,23 @@ namespace Create_List_WPF
             string DirReport = arr + @"PerformanceTests\bin\Debug\netcoreapp3.1\reportTime.txt";
             //Console.WriteLine(DirReport);
             //string textFile = @"C:\Users\DELL\source\repos\sotchatzi\Big-Data-in-GUI\PerformanceTests\bin\Debug\netcoreapp3.1\reportTime.txt";
-            FileStream fs;
             if (File.Exists(DirReport))
             {
-                fs = new FileStream(DirReport, FileMode.Open, FileAccess.Read);
+                FileStream fs = new FileStream(DirReport, FileMode.Open, FileAccess.Read);
                 using (fs)
                 {
                     TextRange text = new TextRange(richTextBox1.Document.ContentStart, richTextBox1.Document.ContentEnd);
                     text.Load(fs, DataFormats.Text);
                 }
 
+            }
+            else {
+                richTextBox1.Document.Blocks.Clear();
+                richTextBox1.Document.Blocks.Add(
+                    new Paragraph(
+                        new Run("Performance data not found!\n\nMake sure you run the performance tests!")
+                    )
+                );
             }
         }
 
