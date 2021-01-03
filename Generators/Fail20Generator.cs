@@ -24,7 +24,8 @@ namespace Generators
                     item = new ItemList() { AnIndex = i, AString = RandomUtil.GetRandomString(), AFlag = 0 };
                 }
 
-                ExpectedString.StringWithNoSpecialChar(item);
+                //                ExpectedString.StringWithNoSpecialChar(item);
+                ExpectedString.StringWithNoSpecialCharWithoutException(item);
 
                 yield return item;
             }

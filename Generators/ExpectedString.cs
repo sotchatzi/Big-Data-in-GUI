@@ -21,6 +21,13 @@ namespace Generators
             }
         }
 
+        public static void StringWithNoSpecialCharWithoutException(ItemList item)
+        {
+                foreach (char j in RandomUtil.SpecialChar())
+                    if (item.AString.Contains(j))
+                        //item.AString = "InvalidString";
+                        item.AString = "FailedToOutput";//Failed elements and Time out elements would return the same string
+        }
 
     }
 }

@@ -231,6 +231,7 @@ namespace Create_List_WPF
             elapsedTime.DataContext = new TextboxText() { seconds = Math.Round(totalMilliseconds, 4) };
 
 
+            /*
 
             getFail.DataContext = new MatrixText() { number = 0 };
             getSlow.DataContext = new MatrixText() { number = 0 };
@@ -261,6 +262,7 @@ namespace Create_List_WPF
                     getSlow.DataContext = new MatrixText() { number = SFlag };
                 }
             }
+            */
 
         }
     }
